@@ -10,7 +10,7 @@ namespace TechPadoca.Dados.Repositorio
 
         public ProdutoRepositorio()
         {
-            new List<Produto>();
+           listaProduto = new List<Produto>();
         }
 
         public bool Cadastrar(string nome, string categoria, string marca, decimal valorUnitario, string descricao, decimal unidadeDeMedida)
