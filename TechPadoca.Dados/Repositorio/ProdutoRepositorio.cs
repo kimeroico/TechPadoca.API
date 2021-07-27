@@ -15,7 +15,7 @@ namespace TechPadoca.Dados.Repositorio
 
         public bool Cadastrar(string nome, string categoria, string marca, decimal valorUnitario, string descricao, decimal unidadeDeMedida)
         {
-            var novoProduto = new Produto();
+            Produto novoProduto = new Produto();
             novoProduto.Cadastrar(listaProduto.Count + 1, nome, categoria, marca, valorUnitario, descricao, unidadeDeMedida);
 
             if (Existe(novoProduto))
