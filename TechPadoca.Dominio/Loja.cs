@@ -15,9 +15,10 @@ namespace TechPadoca.Dominio
         public int QuantidadeMinima { get; set; }
 
 
-        public void Cadastrar(int id, int quantidade, int quantidadeMinima)
+        public void Cadastrar(int id, Produto produto, int quantidade, int quantidadeMinima)
         {
             Id = id;
+            Produto = produto;
             Quantidade = quantidade;
             QuantidadeMinima = quantidadeMinima;
         }
@@ -27,32 +28,30 @@ namespace TechPadoca.Dominio
             Quantidade = (quantidade < 0) || (quantidade < quantidadeMinima) ? Quantidade : quantidade;
             QuantidadeMinima = (quantidadeMinima < 0) ? QuantidadeMinima : quantidadeMinima;
         }
+
         public void AdicionarProduto(int quantidade)
         {
-            Quantidade += quantidade;
-        }
-
-        void PedirProdutoEstoque(int quantidade)
-        {
-            if (this.Produto.Categoria == CategoriaDeProduto.Revenda)
+            if (quantidade > 0)
             {
-                if (this.Quantidade <= QuantidadeMinima)
-                {
-                    Console.WriteLine("Necessario fazer pedido a Cozinha");
-                }
+                Quantidade += quantidade;
             }
         }
 
-        void PedirProdutoCozinha(int quantidade)
+        public void RetirarProdutoVendido(int quantidade)
         {
-            if (this.Produto.Categoria == CategoriaDeProduto.Proprio)
-            {
-                if (this.Quantidade <= QuantidadeMinima)
-                {
-                    Console.WriteLine("Necessario fazer pedido a Cozinha");
-                }
-            }
+            Quantidade -= quantidade;
+            NotificarNecessidadeDeReposicao();
         }
 
+        private bool NotificarNecessidadeDeReposicao()
+        {
+            if (Quantidade <= QuantidadeMinima)
+            {
+                Console.WriteLine("É Necesseria Reposição do produto!");
+                return true;
+            }
+
+            return false;
+        }
     }
 }
