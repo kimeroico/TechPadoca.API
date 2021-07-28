@@ -86,19 +86,19 @@ namespace TechPadoca.UI
                 }
             }
 
-            Console.WriteLine("Deseja enviar um produto em estoque para a loja? (s/n)");
-            var enviar = Console.ReadLine();
-            if (enviar == "s")
-            {
-                Console.WriteLine("Qual o Id do produto que vai para a loja?");
-                var id = int.Parse(Console.ReadLine());
-                Console.WriteLine("Quantidade do produto pra loja: ");
-                var qtd = int.Parse(Console.ReadLine());
-                LojaRepositorio loja = new LojaRepositorio();
+            //Console.WriteLine("Deseja enviar um produto em estoque para a loja? (s/n)");
+            //var enviar = Console.ReadLine();
+            //if (enviar == "s")
+            //{
+            //    Console.WriteLine("Qual o Id do produto que vai para a loja?");
+            //    var id = int.Parse(Console.ReadLine());
+            //    Console.WriteLine("Quantidade do produto pra loja: ");
+            //    var qtd = int.Parse(Console.ReadLine());
+            //    LojaRepositorio loja = new LojaRepositorio();
 
-                estoqueRepo.MandarParaLoja(id, qtd, loja);
-                Console.WriteLine(loja); //???
-            }
+            //    estoqueRepo.MandarParaLoja(qtd, loja);
+            //    Console.WriteLine(loja); //???
+            //}
         }
     }
  
