@@ -43,6 +43,10 @@ namespace TechPadoca.Dominio
             Status = !Status;
         }
 
-
+        public override string ToString()
+        {
+            return $"{Nome} | {Marca} | {Categoria} | {ValorUnitario}" +
+                      $" | {Descricao} | {UnidadeDeMedida} | {Status}";
+        }
     }
 }

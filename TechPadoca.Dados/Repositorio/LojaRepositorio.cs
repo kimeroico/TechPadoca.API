@@ -19,7 +19,7 @@ namespace TechPadoca.Dados.Repositorio
         public bool Incluir(int id, int quantidade, int quantidadeMinima)
         {
             var produtoLoja = new Loja();
-            produtoLoja.Cadastrar(listaDaLoja.Count + 1, id, quantidade, quantidadeMinima);
+            produtoLoja.Cadastrar(listaDaLoja.Count + 1, /*id,*/ quantidade, quantidadeMinima);
 
             if (ValidandoDuplicidade(produtoLoja.Id))
             {

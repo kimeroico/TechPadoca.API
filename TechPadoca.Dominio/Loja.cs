@@ -7,7 +7,7 @@ using TechPadoca.Dominio.Services;
 
 namespace TechPadoca.Dominio
 {
-    public class Loja : ISolicitacaoEstoque, ISolicitacaoCozinha
+    public class Loja : ISolicitacaoEstoque//, ISolicitacaoCozinha
     {
         public int Id { get; set; }
         public Produto Produto { get; set; }

@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TechPadoca.Dominio;
 using System.Linq;
 using System;
@@ -16,6 +15,8 @@ namespace TechPadoca.Dados.Repositorio
         }
         public void Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
         {
+            //Esta deixando cadastrar um produto que ainda não existe, ver como tratar isso.
+
             Estoque novoProdutoEstoque = new Estoque();
             novoProdutoEstoque.Id = listaEstoque.Count + 1;
             novoProdutoEstoque.QuantidadeTotal = quantidadeTotal;
@@ -24,7 +25,7 @@ namespace TechPadoca.Dados.Repositorio
             novoProdutoEstoque.Local = local;
 
             if (Existe(novoProdutoEstoque))
-                throw new ApplicationException("Esse produto já existe no estoque");
+               Console.WriteLine("Esse produto já existe no estoque");
             else
                 listaEstoque.Add(novoProdutoEstoque);
         }
@@ -35,30 +36,35 @@ namespace TechPadoca.Dados.Repositorio
 
             if (!Existe(produtoEmEstoque) || LocalEstaOcupado(local))
             {
-                throw new ApplicationException("Produto não existe ou Local do Estoque está ocupado");
+               Console.WriteLine("Produto não existe ou Local do Estoque está ocupado");
             }
-            produtoEmEstoque.QuantidadeTotal = (quantidadeTotal <= 0) ? produtoEmEstoque.QuantidadeTotal : quantidadeTotal;
-            produtoEmEstoque.QuantidadeMinima = (quantidadeMinima <= 0) ? produtoEmEstoque.QuantidadeMinima : quantidadeMinima;
-            produtoEmEstoque.Local = string.IsNullOrEmpty(local.Trim()) ? produtoEmEstoque.Local : local;
+            else
+            {
+                produtoEmEstoque.QuantidadeTotal = (quantidadeTotal <= 0) ? produtoEmEstoque.QuantidadeTotal : quantidadeTotal;
+                produtoEmEstoque.QuantidadeMinima = (quantidadeMinima <= 0) ? produtoEmEstoque.QuantidadeMinima : quantidadeMinima;
+                produtoEmEstoque.Local = string.IsNullOrEmpty(local.Trim()) ? produtoEmEstoque.Local : local;
+            }
         }
 
-        //public void MandarParaLoja(int id, int quantidade, LojaRepositorio listaLoja)
-        //{
-        //    Estoque produtoEmEstoque = SelecionarPorId(id);
+        public void MandarParaLoja(int id, int quantidade, LojaRepositorio listaLoja)
+        {
+            Estoque produtoEmEstoque = SelecionarPorId(id);
 
-        //    if (produtoEmEstoque.Produto.Categoria == "Revendido" || (produtoEmEstoque.Produto.Categoria == "Fabricado")
-        //    {
-        //        if (VerificarQuantidade(produtoEmEstoque, quantidade))
-        //        {
-        //            var prodId = produtoEmEstoque.Produto.Id;
-        //            listaLoja.ReceberProdutoDoEstoque(prodId, quantidade);
-        //        }
-        //        else
-        //            throw new ApplicationException("Produto indisponível no estoque");
-        //    }
-        //    else
-        //        throw new ApplicationException("Produto não pode ser um ingrediente");
-        //}
+            if (produtoEmEstoque.Produto.Categoria == "Pronto".ToLower() || produtoEmEstoque.Produto.Categoria == "Fabricado".ToLower())
+            {
+                if (VerificarQuantidade(produtoEmEstoque, quantidade))
+                {
+                    // produto ou produto em estoque que vai pra loja?
+                    // Dando erro de referencia no LojaRepositorio, null reference...
+                    var prodId = produtoEmEstoque.Id;
+                    listaLoja.ReceberProdutoDoEstoque(prodId, quantidade);
+                }
+                else
+                    Console.WriteLine("Produto indisponível no estoque");
+            }
+            else
+                Console.WriteLine("Produto não pode ser um ingrediente");
+        }
         //public void MandarIngrediente(int id, int quantidade, ReceitaRepositorio listaReceita)
         //{
         //    Estoque produtoEmEstoque = SelecionarPorId(id);
@@ -66,7 +72,7 @@ namespace TechPadoca.Dados.Repositorio
         //    if (produtoEmEstoque.Produto.Categoria == "Ingrediente")
         //    {
         //        if (produtoEmEstoque.QuantidadeTotal <= quantidade)
-        //            throw new ApplicationException("A quantidade disponível em estoque é menor que a " +
+        //            Console.WriteLine("A quantidade disponível em estoque é menor que a " +
         //                                     "quantidade pedida do ingrediente");
         //        else
         //        {
