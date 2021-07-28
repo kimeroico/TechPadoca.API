@@ -13,104 +13,88 @@ namespace TechPadoca.Dados.Repositorio
         {
             listaEstoque = new List<Estoque>();
         }
-        public void Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
+        public bool Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
         {
             //Esta deixando cadastrar um produto que ainda não existe, ver como tratar isso.
 
-            Estoque novoProdutoEstoque = new Estoque();
-            novoProdutoEstoque.Id = listaEstoque.Count + 1;
-            novoProdutoEstoque.QuantidadeTotal = quantidadeTotal;
-            novoProdutoEstoque.QuantidadeMinima = quantidadeMinima;
-            novoProdutoEstoque.Produto = produto;
-            novoProdutoEstoque.Local = local;
+            var novoProdutoEstoque = new Estoque();
+            novoProdutoEstoque.Cadastrar(listaEstoque.Count + 1, quantidadeTotal, quantidadeMinima, produto, local);
 
             if (Existe(novoProdutoEstoque))
-               Console.WriteLine("Esse produto já existe no estoque");
-            else
-                listaEstoque.Add(novoProdutoEstoque);
+            {
+                return false;
+            }
+
+            listaEstoque.Add(novoProdutoEstoque);
+
+            return true;
         }
 
-        public void Alterar(int id, int quantidadeTotal, int quantidadeMinima, string local)
+        public bool Alterar(int id, int quantidadeTotal, int quantidadeMinima, string local)
         {
-            Estoque produtoEmEstoque = SelecionarPorId(id);
+            var produtoEmEstoque = SelecionarPorId(id);
 
-            if (!Existe(produtoEmEstoque) || LocalEstaOcupado(local))
+            if (LocalEstaOcupado(local))
             {
-               Console.WriteLine("Produto não existe ou Local do Estoque está ocupado");
+                return false;
             }
-            else
-            {
-                produtoEmEstoque.QuantidadeTotal = (quantidadeTotal <= 0) ? produtoEmEstoque.QuantidadeTotal : quantidadeTotal;
-                produtoEmEstoque.QuantidadeMinima = (quantidadeMinima <= 0) ? produtoEmEstoque.QuantidadeMinima : quantidadeMinima;
-                produtoEmEstoque.Local = string.IsNullOrEmpty(local.Trim()) ? produtoEmEstoque.Local : local;
-            }
+
+            produtoEmEstoque.Alterar(quantidadeTotal, quantidadeMinima, local);
+            return true;
+           
         }
 
-        public void MandarParaLoja(int id, int quantidade, LojaRepositorio listaLoja)
+        public bool MandarParaLoja(int quantidade, Produto prodloja)
         {
-            Estoque produtoEmEstoque = SelecionarPorId(id);
+            var produtoEmEstoque = SelecionarPorProdutoId(prodloja);
 
-            if (produtoEmEstoque.Produto.Categoria == "Pronto".ToLower() || produtoEmEstoque.Produto.Categoria == "Fabricado".ToLower())
+            if (VerificarQuantidade(produtoEmEstoque, quantidade) || VerificarCategoria(produtoEmEstoque))
             {
-                if (VerificarQuantidade(produtoEmEstoque, quantidade))
-                {
-                    // produto ou produto em estoque que vai pra loja?
-                    // Dando erro de referencia no LojaRepositorio, null reference...
-                    var prodId = produtoEmEstoque.Id;
-                    listaLoja.ReceberProdutoDoEstoque(prodId, quantidade);
-                }
-                else
-                    Console.WriteLine("Produto indisponível no estoque");
+                return false;
             }
-            else
-                Console.WriteLine("Produto não pode ser um ingrediente");
+            
+            produtoEmEstoque.MandarParaProduto(quantidade);
+            return true;                                        
         }
-        //public void MandarIngrediente(int id, int quantidade, ReceitaRepositorio listaReceita)
-        //{
-        //    Estoque produtoEmEstoque = SelecionarPorId(id);
 
-        //    if (produtoEmEstoque.Produto.Categoria == "Ingrediente")
-        //    {
-        //        if (produtoEmEstoque.QuantidadeTotal <= quantidade)
-        //            Console.WriteLine("A quantidade disponível em estoque é menor que a " +
-        //                                     "quantidade pedida do ingrediente");
-        //        else
-        //        {
-        //            var prodId = produtoEmEstoque.Produto.Id;
-        //            listaReceita.ReceberIngredienteDoEstoque(prodId, quantidade);
-        //        }
-        //    }
-        //}
+        public bool MandarParaCozinha(int quantidade, Produto prodCozinha)
+        {
+            var produtoEmEstoque = SelecionarPorProdutoId(prodCozinha);
+
+            if (VerificarQuantidade(produtoEmEstoque, quantidade) || !VerificarCategoria(produtoEmEstoque))
+            {
+                return false;
+            }
+
+            produtoEmEstoque.MandarParaProduto(quantidade);
+            return true;
+        }
 
         private bool VerificarQuantidade(Estoque produtoEmEstoque, int quantidadePedida)
         {
-            if (produtoEmEstoque.QuantidadeTotal <= quantidadePedida)
+            if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
             {
-                if (produtoEmEstoque.QuantidadeTotal > 0)
-                {
-                    produtoEmEstoque.QuantidadeTotal -= quantidadePedida;
-                    VerificarNecessidadeDeCompra(produtoEmEstoque);
-                    return true;
-                }
-                else
-                {
-                    VerificarNecessidadeDeCompra(produtoEmEstoque);
-                    return false;
-                }
-            }
-            else
-            {
-                produtoEmEstoque.QuantidadeTotal -= quantidadePedida;
-                VerificarNecessidadeDeCompra(produtoEmEstoque);
+                Console.WriteLine("Não existe quantidade suficiente.");
                 return true;
             }
 
+            return false;
+        }
+
+        private bool VerificarCategoria(Estoque produtoEmEstoque)
+        {
+            if (produtoEmEstoque.Produto.Categoria == "Ingrediente")
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool Existe(Estoque estoque)
         {
             return listaEstoque.Any(x => x.Local.Trim().ToLower() == estoque.Local.Trim().ToLower()
-            && x.Produto == estoque.Produto);
+            && x.Produto.Id == estoque.Produto.Id);
         }
 
         public Estoque SelecionarPorId(int id)
@@ -118,19 +102,16 @@ namespace TechPadoca.Dados.Repositorio
             return listaEstoque.FirstOrDefault(x => x.Id == id);
         }
 
+        public Estoque SelecionarPorProdutoId(Produto produto)
+        {
+            return listaEstoque.FirstOrDefault(x => x.Produto.Id == produto.Id);
+        }
+
         private bool LocalEstaOcupado(string local)
         {
             return listaEstoque.Any(x => x.Local.Trim().ToLower() == local.Trim().ToLower());
         }
 
-        public void VerificarNecessidadeDeCompra(Estoque produtoEstoque)
-        {
-            if (produtoEstoque.QuantidadeTotal <= produtoEstoque.QuantidadeMinima)
-            {
-                Console.WriteLine("Produto atingiu a quantidade mínima em estoque." +
-                    "\nPor favor solicitar reposição ao setor de compras");
-            }
-        }
         public List<Estoque> SelecionarTudo()
         {
             return listaEstoque.OrderBy(x => x.Produto).ToList();
