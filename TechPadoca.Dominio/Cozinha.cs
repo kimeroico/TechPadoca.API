@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dominio
 {
     public class Cozinha
     {
-        public int Id { get; set; }
-        public Produto ProdutoFabricado { get; set; }
-        public int QauntidadeProduzida { get; set; }
+        public int Id { get; private set; }
+        public Produto ProdutoFabricado { get; private set; }
+        public int QuantidadeProduzida { get; set; }
         public Receita Receita { get; set; }
+        public ProducaoStatusEnum StatusDeProducao { get; set; }
 
-        
-        
+        public void Cadastrar(int id, Produto produtoFabricado, int quantidadeProduzida, int Status)
+        {
+            Id = id;
+            ProdutoFabricado = produtoFabricado;
+            QuantidadeProduzida = quantidadeProduzida;
+            StatusDeProducao = (ProducaoStatusEnum)Status;
+        }
+
+
+
         void SolicitarIngredientes()
         {
            
