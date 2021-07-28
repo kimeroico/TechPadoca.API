@@ -82,7 +82,7 @@ namespace TechPadoca.Dados.Repositorio
 
         private bool VerificarCategoria(Estoque produtoEmEstoque)
         {
-            if (produtoEmEstoque.Produto.Categoria == CategoriaDeProduto.Ingrediente)
+            if (produtoEmEstoque.Produto.Categoria == CategoriaDeProdutoEnum.Ingrediente)
             {
                 return true;
             }

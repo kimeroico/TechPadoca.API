@@ -6,7 +6,7 @@ namespace TechPadoca.Dominio
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public CategoriaDeProduto Categoria { get; set; }
+        public CategoriaDeProdutoEnum Categoria { get; set; }
         public string Marca { get; set; }
         public decimal ValorUnitario { get; set; }
         public string Descricao { get; set; }
@@ -17,7 +17,7 @@ namespace TechPadoca.Dominio
         {
             Id = id;
             Nome = nome;
-            Categoria = (CategoriaDeProduto) categoria;
+            Categoria = (CategoriaDeProdutoEnum) categoria;
             Marca = marca;
             ValorUnitario = valorUnitario;
             Descricao = descricao;

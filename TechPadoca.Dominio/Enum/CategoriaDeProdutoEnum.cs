@@ -1,6 +1,6 @@
 ﻿namespace TechPadoca.Dominio.Enum
 {
-    public enum CategoriaDeProduto
+    public enum CategoriaDeProdutoEnum
     {
         Revenda = 0,
         Proprio = 1,
