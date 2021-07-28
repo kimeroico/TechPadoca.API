@@ -16,8 +16,6 @@ namespace TechPadoca.Dados.Repositorio
         }
         public bool Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
         {
-            //Esta deixando cadastrar um produto que ainda não existe, ver como tratar isso.
-
             var novoProdutoEstoque = new Estoque();
             novoProdutoEstoque.Cadastrar(listaEstoque.Count + 1, quantidadeTotal, quantidadeMinima, produto, local);
 
