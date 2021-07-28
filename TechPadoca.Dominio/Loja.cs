@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechPadoca.Dominio.Services;
 
 namespace TechPadoca.Dominio
 {
+<<<<<<< HEAD
     public class Loja : ISolicitacaoEstoque//, ISolicitacaoCozinha
+=======
+    public class Loja
+>>>>>>> 52a6a3a537a858edf65994a511754c9ebcca7148
     {
         public int Id { get; set; }
         public Produto Produto { get; set; }
