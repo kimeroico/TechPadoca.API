@@ -16,12 +16,12 @@ namespace TechPadoca.Dados.Repositorio
             listaDaLoja = new List<Loja>();
         }
 
-        public bool Incluir(int id, int quantidade, int quantidadeMinima)
+        public bool Incluir(Produto produto, int quantidade, int quantidadeMinima)
         {
             var produtoLoja = new Loja();
-            produtoLoja.Cadastrar(listaDaLoja.Count + 1, quantidade, quantidadeMinima);
+            produtoLoja.Cadastrar(listaDaLoja.Count + 1, produto, quantidade, quantidadeMinima);
 
-            if (ValidandoDuplicidade(produtoLoja.Id))
+            if (ValidandoDuplicidade(produtoLoja))
             {
                 return false;
             }
@@ -32,25 +32,44 @@ namespace TechPadoca.Dados.Repositorio
 
         public bool Alterar(int id, int quantidade, int quantidadeMinima)
         {
-            var objeto = SelecionePorIdProduto(id);
-            if (!ValidandoDuplicidade(objeto.Id))
-            {
-                return false;
-            }
-
+            var objeto = SelecionePorId(id);
             objeto.Alterar(quantidade, quantidadeMinima);
             return true;
         }
 
-        public void ReceberProdutoDoEstoque(int id, int quantidadeRecebida)
+        public void SolicitarProdutoDoEstoque(Produto produto, int quantidadeSolicita)
         {
-            var produto = SelecionePorIdProduto(id);
-            produto.AdicionarProduto(quantidadeRecebida);
+            var solicitado = SelecionePorIdProduto(produto);
+            var estoque = new EstoqueRepositorio();
+
+            if(estoque.MandarParaLoja(quantidadeSolicita, solicitado.Produto))
+            {
+                solicitado.AdicionarProduto(quantidadeSolicita);
+            }
+
         }
 
-        public Loja SelecionePorIdProduto(int id)
+        public void SolicitarProdutoParaCozinha(Produto produto, int quantidadeSolicita)
         {
-            return listaDaLoja.FirstOrDefault(x => x.Id == id);
+            
+        }
+
+        public bool ProdutoVendido(Produto produto, int quantidadeVendida)
+        {
+            var prodLoja = SelecionePorIdProduto(produto);
+
+            if (VerificarQuantidade(prodLoja, quantidadeVendida))
+            {
+                return false;
+            }
+
+            prodLoja.RetirarProdutoVendido(quantidadeVendida);
+            return true;
+        }
+
+        public Loja SelecionePorIdProduto(Produto produto)
+        {
+            return listaDaLoja.FirstOrDefault(x => x.Produto.Id == produto.Id);
         }
 
         public Loja SelecionePorId(int id)
@@ -58,9 +77,20 @@ namespace TechPadoca.Dados.Repositorio
             return listaDaLoja.FirstOrDefault(x => x.Id == id);
         }
 
-        private bool ValidandoDuplicidade(int id)
+        private bool ValidandoDuplicidade(Loja produtoEmLoja)
         {
-            return listaDaLoja.Any(x => x.Id == id);
+            return listaDaLoja.Any(x => x.Produto == produtoEmLoja.Produto);
+        }
+
+        private bool VerificarQuantidade(Loja produtoNaLoja, int quantidadePedida)
+        {
+            if (produtoNaLoja.Quantidade < quantidadePedida)
+            {
+                Console.WriteLine($"Não existe quantidade suficiente.\n Temos {produtoNaLoja.Quantidade} unidade(s)!");
+                return true;
+            }
+
+            return false;
         }
     }
 }
