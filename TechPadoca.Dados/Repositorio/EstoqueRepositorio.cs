@@ -2,6 +2,7 @@
 using TechPadoca.Dominio;
 using System.Linq;
 using System;
+using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
@@ -83,7 +84,7 @@ namespace TechPadoca.Dados.Repositorio
 
         private bool VerificarCategoria(Estoque produtoEmEstoque)
         {
-            if (produtoEmEstoque.Produto.Categoria == "Ingrediente")
+            if (produtoEmEstoque.Produto.Categoria == CategoriaDeProduto.Ingrediente)
             {
                 return true;
             }

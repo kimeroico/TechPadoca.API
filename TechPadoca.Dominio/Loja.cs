@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dominio
 {
@@ -33,7 +34,7 @@ namespace TechPadoca.Dominio
 
         void PedirProdutoEstoque(int quantidade)
         {
-            if (this.Produto.Categoria == "Pronto")
+            if (this.Produto.Categoria == CategoriaDeProduto.Revenda)
             {
                 if (this.Quantidade <= QuantidadeMinima)
                 {
@@ -44,7 +45,7 @@ namespace TechPadoca.Dominio
 
         void PedirProdutoCozinha(int quantidade)
         {
-            if (this.Produto.Categoria == "Produzido")
+            if (this.Produto.Categoria == CategoriaDeProduto.Proprio)
             {
                 if (this.Quantidade <= QuantidadeMinima)
                 {
