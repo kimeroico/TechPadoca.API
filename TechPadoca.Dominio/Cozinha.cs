@@ -7,7 +7,7 @@ namespace TechPadoca.Dominio
     {
         public int Id { get; private set; }
         public Produto ProdutoFabricado { get; private set; }
-        public int QuantidadeProduzida { get; set; }
+        public decimal QuantidadeProduzida { get; set; }
         public ProducaoStatusEnum StatusDeProducao { get; set; }
 
         public void Cadastrar(int id, Produto produtoFabricado, int quantidadeProduzida)

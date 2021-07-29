@@ -14,7 +14,7 @@ namespace TechPadoca.Dados.Repositorio
         {
             listaEstoque = new List<Estoque>();
         }
-        public bool Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local, int qtdTipo)
+        public bool Cadastrar(decimal quantidadeTotal, decimal quantidadeMinima, Produto produto, string local, int qtdTipo)
         {
             var novoProdutoEstoque = new Estoque();
             novoProdutoEstoque.Cadastrar(listaEstoque.Count + 1, quantidadeTotal, quantidadeMinima, produto, local, qtdTipo);
@@ -29,7 +29,7 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public bool Alterar(int id, int quantidadeTotal, int quantidadeMinima, string local)
+        public bool Alterar(int id, decimal quantidadeTotal, decimal quantidadeMinima, string local)
         {
             var produtoEmEstoque = SelecionarPorId(id);
 
@@ -43,7 +43,7 @@ namespace TechPadoca.Dados.Repositorio
            
         }
 
-        public bool MandarParaLoja(int quantidade, Produto prodloja)
+        public bool MandarParaLoja(decimal quantidade, Produto prodloja)
         {
             var produtoEmEstoque = SelecionarPorProdutoId(prodloja);
 
@@ -56,7 +56,7 @@ namespace TechPadoca.Dados.Repositorio
             return true;                                        
         }
 
-        public bool MandarParaCozinha(int quantidade, Produto prodCozinha)
+        public bool MandarParaCozinha(decimal quantidade, Produto prodCozinha)
         {
             var produtoEmEstoque = SelecionarPorProdutoId(prodCozinha);
 
@@ -69,7 +69,7 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        private bool VerificarQuantidade(Estoque produtoEmEstoque, int quantidadePedida)
+        private bool VerificarQuantidade(Estoque produtoEmEstoque, decimal quantidadePedida)
         {
             if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
             {
