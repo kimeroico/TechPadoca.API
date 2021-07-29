@@ -7,27 +7,23 @@ namespace TechPadoca.Dominio
         public int Id { get; private set; }
         public Produto ProdutoFabricado { get; private set; }
         public int QuantidadeProduzida { get; set; }
-        public Receita Receita { get; set; }
         public ProducaoStatusEnum StatusDeProducao { get; set; }
 
-        public void Cadastrar(int id, Produto produtoFabricado, int quantidadeProduzida, int Status)
+        public void Cadastrar(int id, Produto produtoFabricado, int quantidadeProduzida)
         {
             Id = id;
             ProdutoFabricado = produtoFabricado;
             QuantidadeProduzida = quantidadeProduzida;
-            StatusDeProducao = (ProducaoStatusEnum)Status;
+            StatusDeProducao = ProducaoStatusEnum.Recebido;
         }
+        public void VerificarReceita()
+        {
 
-
+        }
 
         public void SolicitarIngredientes()
         {
            
-        }
-
-        public void VerificarReceita()
-        {
-
         }
 
         public void EnviarProdutoPronto()
