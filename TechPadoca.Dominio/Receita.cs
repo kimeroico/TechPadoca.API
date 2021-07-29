@@ -20,8 +20,8 @@ namespace TechPadoca.Dominio
         }
         public void Alterar(Produto prodFabricado, Produto prodIngrediente, decimal qtdIngrediente)
         {
-            ProdFabricado = prodFabricado.Categoria == CategoriaDeProduto.Proprio ? prodFabricado : ProdFabricado;
-            ProdIngrediente = prodIngrediente.Categoria == CategoriaDeProduto.Ingrediente ? prodIngrediente : ProdIngrediente;
+            ProdFabricado = prodFabricado.Categoria == CategoriaDeProdutoEnum.Proprio ? prodFabricado : ProdFabricado;
+            ProdIngrediente = prodIngrediente.Categoria == CategoriaDeProdutoEnum.Ingrediente ? prodIngrediente : ProdIngrediente;
             QtdIngrediente = qtdIngrediente;
         }
 
