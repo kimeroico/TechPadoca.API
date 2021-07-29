@@ -20,17 +20,17 @@ namespace TechPadoca.Dominio
 
 
 
-        void SolicitarIngredientes()
+        public void SolicitarIngredientes()
         {
            
         }
 
-        void VerificarReceita()
+        public void VerificarReceita()
         {
 
         }
 
-        void EnviarProdutoPronto()
+        public void EnviarProdutoPronto()
         {
 
         }
