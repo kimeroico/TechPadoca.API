@@ -23,13 +23,36 @@ namespace TechPadoca.Dados.Repositorio
 
             if (Existe(novaSolicitacao))
             {
-
+                return false;
             }
 
+            listaCozinha.Add(novaSolicitacao);
+            return true;
+        }
+
+        public bool AlterarSolicitacao(int id, int quantidade)
+        {
+            var alterado = SelecionarPorId(id);
+            alterado.Alterar(quantidade);
+            return true;
+        }
+
+        public bool VerificarReceita(Cozinha solicitacao)
+        {
+            var receita = new ReceitaRepositorio();
+            var listaReceita = receita.SelecionarReceitaCompleta(solicitacao.ProdutoFabricado.Id);
+
+            foreach (var x in listaReceita)
+            {
+                var n = new EstoqueRepositorio();
+                n.MandarParaCozinha(x.QtdIngrediente, x.ProdIngrediente);
+
+            }
 
             return true;
         }
 
+        public Cozinha SelecionarPorId(int id) => listaCozinha.FirstOrDefault(x => x.Id == id);
 
         private bool Existe(Cozinha pedido)
         {

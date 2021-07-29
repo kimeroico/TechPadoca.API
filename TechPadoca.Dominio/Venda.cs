@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
-    public class Venda
+    public class Venda : IEntity
     {
         public int Id { get; set; }
         public List<ItemVenda> Items { get; set; }

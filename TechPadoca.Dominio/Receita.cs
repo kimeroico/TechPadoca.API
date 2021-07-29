@@ -1,8 +1,9 @@
 ﻿using TechPadoca.Dominio.Enum;
+using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
-    public class Receita
+    public class Receita : IEntity
     {
         public int Id { get; set; }
         public Produto ProdFabricado { get; set; }

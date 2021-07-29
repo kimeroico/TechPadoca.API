@@ -14,10 +14,10 @@ namespace TechPadoca.Dados.Repositorio
         {
             listaEstoque = new List<Estoque>();
         }
-        public bool Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
+        public bool Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local, int qtdTipo)
         {
             var novoProdutoEstoque = new Estoque();
-            novoProdutoEstoque.Cadastrar(listaEstoque.Count + 1, quantidadeTotal, quantidadeMinima, produto, local);
+            novoProdutoEstoque.Cadastrar(listaEstoque.Count + 1, quantidadeTotal, quantidadeMinima, produto, local, qtdTipo);
 
             if (Existe(novoProdutoEstoque))
             {

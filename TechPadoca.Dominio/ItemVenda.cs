@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
-    public class ItemVenda
+    public class ItemVenda : IEntity
     {
         public int Id { get; set; }
         public Produto Produto { get; set; }

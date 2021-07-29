@@ -1,22 +1,26 @@
 ﻿using System;
+using TechPadoca.Dominio.Enum;
+using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
-    public class Estoque
+    public class Estoque : IEntity
     {
         public int Id { get; set; }
-        public int QuantidadeTotal { get; set; }
-        public int QuantidadeMinima { get; set; }
+        public decimal QuantidadeTotal { get; set; }
+        public decimal QuantidadeMinima { get; set; }
         public Produto Produto { get; set; }
         public string Local { get; set; }
+        public TipoQuantidadeEnum QtdTipo { get; set; }
 
-        public void Cadastrar(int id, int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
+        public void Cadastrar(int id, int quantidadeTotal, int quantidadeMinima, Produto produto, string local, int qtdTpo)
         {
             Id = id;
             QuantidadeTotal = quantidadeTotal;
             QuantidadeMinima = quantidadeMinima;
             Produto = produto;
             Local = local;
+            QtdTipo = (TipoQuantidadeEnum)qtdTpo;
         }
 
         public void Alterar(int quantidadeTotal, int quantidadeMinima, string local)
