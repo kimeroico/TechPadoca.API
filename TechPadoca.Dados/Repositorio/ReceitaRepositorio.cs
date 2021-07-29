@@ -45,14 +45,12 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public List<Receita> SelecionarReceitaCompleta(int id) => listaDaReceita.Where(x => x.ProdFabricado.Id == id).ToList();        
+        public List<Receita> SelecionarReceitaCompleta(int id) => listaDaReceita.Where(x => x.ProdFabricado.Id == id).ToList();
 
         public Receita SelecionarPorId(int id) => listaDaReceita.FirstOrDefault(x => x.Id == id);
-        
-        private bool Existe(Receita receita) => listaDaReceita.Any(x => x.ProdFabricado == receita.ProdFabricado && x.ProdIngrediente == receita.ProdIngrediente);
-    
-        private bool Existe(Produto prodFabricado, Produto prodIngrediente) => listaDaReceita.Any(x => x.ProdFabricado == prodFabricado && x.ProdIngrediente == prodIngrediente);
-   
 
+        private bool Existe(Receita receita) => listaDaReceita.Any(x => x.ProdFabricado == receita.ProdFabricado && x.ProdIngrediente == receita.ProdIngrediente);
+
+        private bool Existe(Produto prodFabricado, Produto prodIngrediente) => listaDaReceita.Any(x => x.ProdFabricado == prodFabricado && x.ProdIngrediente == prodIngrediente);
     }
 }

@@ -15,5 +15,27 @@ namespace TechPadoca.Dados.Repositorio
         {
             listaCozinha = new List<Cozinha>();
         }
+
+        public bool NovaSolicitacaoDaLoja(Produto produto, int quantidade)
+        {
+            var novaSolicitacao = new Cozinha();
+            novaSolicitacao.Cadastrar(listaCozinha.Count + 1, produto, quantidade);
+
+            if (Existe(novaSolicitacao))
+            {
+
+            }
+
+
+            return true;
+        }
+
+
+        private bool Existe(Cozinha pedido)
+        {
+            return listaCozinha.Any(x => x.ProdutoFabricado == pedido.ProdutoFabricado
+            && x.QuantidadeProduzida == pedido.QuantidadeProduzida
+            && x.StatusDeProducao == pedido.StatusDeProducao);
+        }
     }
 }

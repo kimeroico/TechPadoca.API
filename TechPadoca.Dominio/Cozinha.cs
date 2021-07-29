@@ -16,19 +16,16 @@ namespace TechPadoca.Dominio
             QuantidadeProduzida = quantidadeProduzida;
             StatusDeProducao = ProducaoStatusEnum.Recebido;
         }
-        public void VerificarReceita()
-        {
 
+        public void Alterar(Produto produtoFabricado, int quantidadeProduzida)
+        {
+            ProdutoFabricado = produtoFabricado.Categoria != CategoriaDeProdutoEnum.Proprio ? ProdutoFabricado : produtoFabricado;
+            QuantidadeProduzida = (quantidadeProduzida <= 0) ? QuantidadeProduzida : quantidadeProduzida;
         }
 
-        public void SolicitarIngredientes()
+        public void AlterarStatus(ProducaoStatusEnum idStatus) 
         {
-           
-        }
-
-        public void EnviarProdutoPronto()
-        {
-
+            StatusDeProducao = idStatus;
         }
     }
 }
