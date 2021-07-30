@@ -8,14 +8,18 @@ namespace TechPadoca.UI
     {
         static void Main(string[] args)
         {
-            TesteAlan();
+            Testes();
         }
-        public static void TesteAlan()
+        public static void Testes()
         {
             var comando = "";
             var comando2 = "";
+            var comando3 = "";
             ProdutoRepositorio produto = new ProdutoRepositorio();
             EstoqueRepositorio estoqueRepo = new EstoqueRepositorio();
+            VendaRepositorio vendaRepo = new VendaRepositorio();
+            ItemVendaRepositorio itemRepo = new ItemVendaRepositorio();
+
             while (comando != "x")
             {                     
                 Console.WriteLine("Cadastre um ou mais produtos");
@@ -86,6 +90,26 @@ namespace TechPadoca.UI
                 }
             }
 
+            Console.WriteLine("Cadastre o(s) items de venda");
+            while (comando3 != "x")
+            {
+                Console.Write("Produto: ");
+                var prod = produto.SelecionarPorId(int.Parse(Console.ReadLine()));
+                Console.WriteLine("Quantidade: ");
+                var qtd = decimal.Parse(Console.ReadLine());
+                itemRepo.Cadastrar(prod, qtd);
+                Console.WriteLine();
+                Console.WriteLine("Digite x para sair ou qualquer outro valor para continuar...");
+                comando3 = Console.ReadLine();
+            }
+            var itensDaVenda = itemRepo.SelecionarTudo();
+            foreach (var i in itensDaVenda )
+            {
+                Console.WriteLine("Itens da venda:  ");
+                Console.WriteLine($"Produto: {i.Produto}\nQuantidade: {i.Quantidade}\n");
+            }
+
+
             //Console.WriteLine("Deseja enviar um produto em estoque para a loja? (s/n)");
             //var enviar = Console.ReadLine();
             //if (enviar == "s")
@@ -100,6 +124,7 @@ namespace TechPadoca.UI
             //    Console.WriteLine(loja); //???
             //}
         }
+
     }
  
 }

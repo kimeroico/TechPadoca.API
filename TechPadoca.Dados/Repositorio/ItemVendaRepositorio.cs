@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace TechPadoca.Dados.Repositorio
 {
     public class ItemVendaRepositorio
@@ -14,12 +13,19 @@ namespace TechPadoca.Dados.Repositorio
             listaItemVenda = new List<ItemVenda>();
         }
 
-        public void Cadastrar(Produto produto, Venda venda, decimal quantidade)
+        public void Cadastrar(Produto produto, decimal quantidade)
         {
             ItemVenda itemVenda = new ItemVenda();
 
-            itemVenda.Cadastrar(listaItemVenda.Count + 1, produto, venda, quantidade);
+            //Verificar se existe na loja ou receber da loja...
+
+            itemVenda.Cadastrar(listaItemVenda.Count + 1, produto, quantidade);
             listaItemVenda.Add(itemVenda);
         }
+        public List<ItemVenda> SelecionarTudo()
+        {
+            return listaItemVenda.OrderBy(x => x.Produto).ToList();
+        }
+
     }
 }

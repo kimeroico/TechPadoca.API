@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TechPadoca.Dominio;
-
+using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
@@ -21,7 +21,22 @@ namespace TechPadoca.Dados.Repositorio
             venda.Cadastrar(listaVenda.Count + 1, items, valorTotal, desconto);
             listaVenda.Add(venda);
         }
+        public void VendaConcluida(Venda venda)
+        {
+            LojaRepositorio itemsVendidos = new LojaRepositorio();
+            var produtosVendidos = itemsVendidos.SelecionarTudo();
 
-
+            foreach(var p in produtosVendidos)
+            {
+                itemsVendidos.ProdutoVendido(p.Produto, p.Quantidade);
+            }
+            venda.Status = StatusDaVenda.Terminada;
+        }
+        public Venda SelecionarPorId(int id)
+        {
+            return listaVenda.FirstOrDefault(x => x.Id == id);
+        }
     }
+
+
 }

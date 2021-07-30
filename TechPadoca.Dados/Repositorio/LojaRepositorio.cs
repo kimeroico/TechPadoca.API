@@ -71,7 +71,7 @@ namespace TechPadoca.Dados.Repositorio
         {
             return listaDaLoja.FirstOrDefault(x => x.Produto.Id == produto.Id);
         }
-
+          
         public Loja SelecionePorId(int id)
         {
             return listaDaLoja.FirstOrDefault(x => x.Id == id);
@@ -91,6 +91,10 @@ namespace TechPadoca.Dados.Repositorio
             }
 
             return false;
+        }
+        public List<Loja> SelecionarTudo()
+        {
+            return listaDaLoja.OrderBy(x => x.Produto).ToList();
         }
     }
 }

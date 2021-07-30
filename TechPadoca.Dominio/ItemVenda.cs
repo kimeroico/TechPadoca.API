@@ -13,12 +13,12 @@ namespace TechPadoca.Dominio
         public Venda Venda { get; set; }
         public decimal Quantidade { get; set; }
 
-        public void Cadastrar(int id, Produto produto, Venda venda, decimal quantidade)
+        public void Cadastrar(int id, Produto produto, decimal quantidade)
         {
             Id = id;
             Produto = produto;
-            Venda = venda;
             Quantidade = quantidade;
         }
+
     }  
 }

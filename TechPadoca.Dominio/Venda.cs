@@ -1,8 +1,6 @@
-﻿using System;
+﻿using TechPadoca.Dominio.Enum;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TechPadoca.Dominio
 {
@@ -12,6 +10,7 @@ namespace TechPadoca.Dominio
         public List<ItemVenda> Items { get; set; }
         public decimal ValorTotal { get; set; }
         public decimal Desconto { get; set; }
+        public StatusDaVenda Status { get; set; }
 
         public void Cadastrar(int id, List<ItemVenda> items, decimal valorTotal, decimal desconto)
         {           
@@ -19,16 +18,11 @@ namespace TechPadoca.Dominio
             Items.AddRange(items);
             ValorTotal = valorTotal;
             Desconto = desconto;
+            Status = StatusDaVenda.Iniciada;
         }
-
-        public void SolicitarItemVenda(List<ItemVenda> items)
+        public override string ToString()
         {
-            // entender melhor
-        }
-
-        public void VendaConcluida()
-        {
-            // entender melhor
+            return $"{Items} | {ValorTotal} | {Desconto} | {Status}";
         }
     }
 }
