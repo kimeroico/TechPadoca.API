@@ -67,7 +67,9 @@ namespace TechPadoca.UI
             var resultado = estoqueRepo.SelecionarTudo();
             foreach (var i in resultado)
             {
-                Console.WriteLine($"Quantidade mínima: {i.QuantidadeMinima}\nLocal: {i.Local}\nQuantidade total: {i.QuantidadeTotal}\nProduto: {i.Produto}");
+                Console.WriteLine($"Quantidade mínima: {i.QuantidadeMinima}\nLocal: {i.Local}\nQuantidade total: {i.QuantidadeTotal}"+
+                    $"\nProduto: {i.Produto.Nome} | Marcar: {i.Produto.Marca} | Categoria: {i.Produto.Categoria} | Descrição: {i.Produto.Descricao}"+
+                    $" | status: {i.Produto.Status}");
             }
 
             Console.WriteLine("Deseja alterar um produto em estoque? (s/n)");
@@ -120,40 +122,40 @@ namespace TechPadoca.UI
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Cadastre uma ou mais vendas");
-            while (comando3 != "x")
-            {
-                Console.Write("Valor Total: ");
-                var valorTotal = decimal.Parse(Console.ReadLine());
-                Console.WriteLine("Desconto: ");
-                var desconto = decimal.Parse(Console.ReadLine());
-                vendaRepo.Cadastrar(valorTotal, desconto);
-                Console.WriteLine("Digite x para sair ou qualquer outro valor para continuar...");
-                comando3 = Console.ReadLine();
-                Console.WriteLine();
-            }
+            //Console.WriteLine("Cadastre uma ou mais vendas");
+            //while (comando3 != "x")
+            //{
+            //    Console.Write("Valor Total: ");
+            //    var valorTotal = decimal.Parse(Console.ReadLine());
+            //    Console.WriteLine("Desconto: ");
+            //    var desconto = decimal.Parse(Console.ReadLine());
+            //    vendaRepo.Cadastrar(valorTotal, desconto);
+            //    Console.WriteLine("Digite x para sair ou qualquer outro valor para continuar...");
+            //    comando3 = Console.ReadLine();
+            //    Console.WriteLine();
+            //}
 
-            Console.WriteLine("Cadastre o(s) items de venda");
-            while (comando4 != "x")
-            {
-                Console.Write("Produto: ");
-                var prod = produtoRepo.SelecionarPorId(int.Parse(Console.ReadLine()));
-                Console.Write("Venda: ");
-                var venda = vendaRepo.SelecionarPorId(int.Parse(Console.ReadLine()));
-                Console.WriteLine("Quantidade: ");
-                var qtd = decimal.Parse(Console.ReadLine());
-                itemRepo.Incluir(prod, venda, qtd);
-                Console.WriteLine();
-                Console.WriteLine("Digite x para sair ou qualquer outro valor para continuar...");
-                comando3 = Console.ReadLine();
-                Console.WriteLine();
-            }
-            var itensDaVenda = itemRepo.SelecionarTudo();
-            foreach (var i in itensDaVenda )
-            {
-                Console.WriteLine("Itens da venda:  ");
-                Console.WriteLine($"Produto: {i.Produto}\nVenda: {i.Venda}\nQuantidade: {i.Quantidade}\nValor Unitario: {i.ValorUnitario}\n");
-            }
+            //Console.WriteLine("Cadastre o(s) items de venda");
+            //while (comando4 != "x")
+            //{
+            //    Console.Write("Produto: ");
+            //    var prod = produtoRepo.SelecionarPorId(int.Parse(Console.ReadLine()));
+            //    Console.Write("Venda: ");
+            //    var venda = vendaRepo.SelecionarPorId(int.Parse(Console.ReadLine()));
+            //    Console.WriteLine("Quantidade: ");
+            //    var qtd = decimal.Parse(Console.ReadLine());
+            //    itemRepo.Incluir(prod, venda, qtd);
+            //    Console.WriteLine();
+            //    Console.WriteLine("Digite x para sair ou qualquer outro valor para continuar...");
+            //    comando3 = Console.ReadLine();
+            //    Console.WriteLine();
+            //}
+            //var itensDaVenda = itemRepo.SelecionarTudo();
+            //foreach (var i in itensDaVenda )
+            //{
+            //    Console.WriteLine("Itens da venda:  ");
+            //    Console.WriteLine($"Produto: {i.Produto}\nVenda: {i.Venda}\nQuantidade: {i.Quantidade}\nValor Unitario: {i.ValorUnitario}\n");
+            //}
 
 
         }
