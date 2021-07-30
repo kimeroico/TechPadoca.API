@@ -1,15 +1,16 @@
 ﻿using TechPadoca.Dominio.Enum;
+using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
-    public class Cozinha
+    public class Cozinha : IEntity
     {
         public int Id { get; private set; }
         public Produto ProdutoFabricado { get; private set; }
-        public int QuantidadeProduzida { get; set; }
+        public decimal QuantidadeProduzida { get; set; }
         public ProducaoStatusEnum StatusDeProducao { get; set; }
 
-        public void Cadastrar(int id, Produto produtoFabricado, int quantidadeProduzida)
+        public void Cadastrar(int id, Produto produtoFabricado, decimal quantidadeProduzida)
         {
             Id = id;
             ProdutoFabricado = produtoFabricado;
@@ -17,9 +18,8 @@ namespace TechPadoca.Dominio
             StatusDeProducao = ProducaoStatusEnum.Recebido;
         }
 
-        public void Alterar(Produto produtoFabricado, int quantidadeProduzida)
+        public void Alterar(decimal quantidadeProduzida)
         {
-            ProdutoFabricado = produtoFabricado.Categoria != CategoriaDeProdutoEnum.Proprio ? ProdutoFabricado : produtoFabricado;
             QuantidadeProduzida = (quantidadeProduzida <= 0) ? QuantidadeProduzida : quantidadeProduzida;
         }
 

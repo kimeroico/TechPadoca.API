@@ -4,32 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechPadoca.Dominio.Enum;
+using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
-    public class Loja
+    public class Loja : IEntity
     {
         public int Id { get; set; }
         public Produto Produto { get; set; }
-        public int Quantidade { get; set; }
-        public int QuantidadeMinima { get; set; }
+        public decimal Quantidade { get; set; }
+        public decimal QuantidadeMinima { get; set; }
+        public TipoQuantidadeEnum QtdTipo { get; set; }
 
 
-        public void Cadastrar(int id, Produto produto, int quantidade, int quantidadeMinima)
+        public void Cadastrar(int id, Produto produto, decimal quantidade, decimal quantidadeMinima, int qtdTipo)
         {
             Id = id;
             Produto = produto;
             Quantidade = quantidade;
             QuantidadeMinima = quantidadeMinima;
+            QtdTipo = (TipoQuantidadeEnum)qtdTipo;
         }
 
-        public void Alterar(int quantidade, int quantidadeMinima)
+        public void Alterar(decimal quantidade, decimal quantidadeMinima)
         {
             Quantidade = (quantidade < 0) || (quantidade < quantidadeMinima) ? Quantidade : quantidade;
             QuantidadeMinima = (quantidadeMinima < 0) ? QuantidadeMinima : quantidadeMinima;
         }
 
-        public void AdicionarProduto(int quantidade)
+        public void AdicionarProduto(decimal quantidade)
         {
             if (quantidade > 0)
             {
@@ -37,7 +40,7 @@ namespace TechPadoca.Dominio
             }
         }
 
-        public void RetirarProdutoVendido(int quantidade)
+        public void RetirarProdutoVendido(decimal quantidade)
         {
             Quantidade -= quantidade;
             NotificarNecessidadeDeReposicao();

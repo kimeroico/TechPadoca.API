@@ -16,10 +16,10 @@ namespace TechPadoca.Dados.Repositorio
             listaDaLoja = new List<Loja>();
         }
 
-        public bool Incluir(Produto produto, int quantidade, int quantidadeMinima)
+        public bool Incluir(Produto produto, decimal quantidade, decimal quantidadeMinima, int qrdTipo)
         {
             var produtoLoja = new Loja();
-            produtoLoja.Cadastrar(listaDaLoja.Count + 1, produto, quantidade, quantidadeMinima);
+            produtoLoja.Cadastrar(listaDaLoja.Count + 1, produto, quantidade, quantidadeMinima, qrdTipo);
 
             if (ValidandoDuplicidade(produtoLoja))
             {
@@ -30,14 +30,14 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public bool Alterar(int id, int quantidade, int quantidadeMinima)
+        public bool Alterar(int id, decimal quantidade, decimal quantidadeMinima)
         {
             var objeto = SelecionePorId(id);
             objeto.Alterar(quantidade, quantidadeMinima);
             return true;
         }
 
-        public void SolicitarProdutoDoEstoque(Produto produto, int quantidadeSolicita)
+        public void SolicitarProdutoDoEstoque(Produto produto, decimal quantidadeSolicita)
         {
             var solicitado = SelecionePorIdProduto(produto);
             var estoque = new EstoqueRepositorio();
@@ -49,12 +49,18 @@ namespace TechPadoca.Dados.Repositorio
 
         }
 
-        public void SolicitarProdutoParaCozinha(Produto produto, int quantidadeSolicita)
+        public void SolicitarProdutoParaCozinha(Produto produto, decimal quantidadeSolicita)
         {
-            
+            var solicitado = SelecionePorIdProduto(produto);
+            var cozinha = new CozinhaRepositorio();
+
+            if (cozinha.NovaSolicitacaoDaLoja(solicitado.Produto, quantidadeSolicita))
+            {
+                solicitado.AdicionarProduto(quantidadeSolicita);
+            }
         }
 
-        public bool ProdutoVendido(Produto produto, int quantidadeVendida)
+        public bool ProdutoVendido(Produto produto, decimal quantidadeVendida)
         {
             var prodLoja = SelecionePorIdProduto(produto);
 
@@ -82,7 +88,7 @@ namespace TechPadoca.Dados.Repositorio
             return listaDaLoja.Any(x => x.Produto == produtoEmLoja.Produto);
         }
 
-        private bool VerificarQuantidade(Loja produtoNaLoja, int quantidadePedida)
+        private bool VerificarQuantidade(Loja produtoNaLoja, decimal quantidadePedida)
         {
             if (produtoNaLoja.Quantidade < quantidadePedida)
             {
