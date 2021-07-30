@@ -126,7 +126,7 @@ namespace TechPadoca.Dados.Repositorio
 
         public List<Estoque> SelecionarTudo()
         {
-            return listaEstoque.OrderBy(x => x.Produto).ToList();
+            return listaEstoque.OrderBy(x => x.Produto.Nome).ToList();
         }
     }
 }
