@@ -15,6 +15,7 @@ namespace TechPadoca.Dominio
         public bool Status { get; set; }
         public Cozinha Cozinha { get; set; }
         public Estoque Estoque { get; set; }
+        public Loja Loja { get; set; }
 
         public void Cadastrar(int id, string nome, int categoria, string marca, decimal valorUnitario, string descricao, int qtdTipo)
         {
