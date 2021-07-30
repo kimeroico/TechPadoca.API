@@ -9,6 +9,7 @@ namespace TechPadoca.Dominio
         public int Id { get; set; }
         public decimal QuantidadeTotal { get; set; }
         public decimal QuantidadeMinima { get; set; }
+        public int IdProduto { get; set; }
         public Produto Produto { get; set; }
         public string Local { get; set; }
         public TipoQuantidadeEnum QtdTipo { get; set; }
