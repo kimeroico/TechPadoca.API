@@ -6,7 +6,7 @@ namespace TechPadoca.Dados.Repositorio
 {
     public class ItemVendaRepositorio
     {
-        private List<ItemVenda> listaItemVenda { get; set; }
+        private List<ItemVenda> listaItemVenda;
 
         public ItemVendaRepositorio()
         {

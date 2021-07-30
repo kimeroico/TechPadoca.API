@@ -1,0 +1,45 @@
+﻿using Microsoft.EntityFrameworkCore;
+using TechPadoca.Dados.Map;
+using TechPadoca.Dominio;
+
+namespace TechPadoca.Dados
+{
+    public class Contexto : DbContext
+    {
+        public Contexto() : base()
+        {
+            
+        }
+
+        public Contexto(DbContextOptions options) : base(options)
+        {
+            
+        }
+
+        public DbSet<Cozinha> Cozinha { get; set; }
+        public DbSet<Estoque> Estoque { get; set; }
+        public DbSet<ItemVenda> ItemVenda { get; set; }
+        public DbSet<Loja> Loja { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+        public DbSet<Receita> Receita { get; set; }
+        public DbSet<Venda> Venda { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=KIMEROICO; Database=TechStyle; Trusted_Connection=True");
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CozinhaMap());
+            modelBuilder.ApplyConfiguration(new EstoqueMap());
+            modelBuilder.ApplyConfiguration(new ItemVendaMap());
+            modelBuilder.ApplyConfiguration(new LojaMap());
+            modelBuilder.ApplyConfiguration(new ProdutoMap());
+            modelBuilder.ApplyConfiguration(new ReceitaMap());
+            modelBuilder.ApplyConfiguration(new VendaMap());
+
+        }
+    }
+}

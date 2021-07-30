@@ -15,10 +15,10 @@ namespace TechPadoca.Dominio
         public decimal Desconto { get; set; }
         public string DataDaVenda { get; set; }
 
-        public void Cadastrar(int id, decimal valorTotal, decimal desconto)
+        public void Cadastrar(int id, decimal desconto)
         {
             Id = id;
-            ValorTotal = valorTotal;
+            ValorTotal = 0;
             Desconto = desconto;
             var dataAgora = DateTime.Now;
             DataDaVenda = String.Format("{0:yyyy/MM/dd}", dataAgora);

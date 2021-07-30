@@ -7,17 +7,17 @@ namespace TechPadoca.Dados.Repositorio
 {
     public class VendaRepositorio
     {
-        private List<Venda> listaVenda { get; set; }
+        private List<Venda> listaVenda;
 
         public VendaRepositorio()
         {
             listaVenda = new List<Venda>();
         }
 
-        public bool Cadastrar(decimal valorTotal, decimal desconto)
+        public bool Cadastrar(decimal desconto)
         {
             var venda = new Venda();            
-            venda.Cadastrar(listaVenda.Count + 1, valorTotal, desconto);
+            venda.Cadastrar(listaVenda.Count + 1, desconto);
             listaVenda.Add(venda);
             return true;
         }
