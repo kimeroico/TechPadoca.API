@@ -6,6 +6,7 @@ namespace TechPadoca.Dominio
     public class Cozinha : IEntity
     {
         public int Id { get; private set; }
+        public int IdProduto { get; set; }
         public Produto ProdutoFabricado { get; private set; }
         public decimal QuantidadeProduzida { get; set; }
         public ProducaoStatusEnum StatusDeProducao { get; set; }

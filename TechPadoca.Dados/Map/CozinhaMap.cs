@@ -14,6 +14,11 @@ namespace TechPadoca.Dados.Map
         public void Configure(EntityTypeBuilder<Cozinha> builder)
         {
             builder.ToTable("Cozinha");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.QuantidadeProduzida).HasColumnType("decima(20,5)").IsRequired();
+            builder.Property(x => x.StatusDeProducao).HasColumnType("int").IsRequired();
+            builder.Property(x => x.IdProduto).HasColumnType("int").IsRequired();
+            builder.HasOne<Produto>(p => p.ProdutoFabricado).WithOne(d => d.Cozinha).HasForeignKey<Cozinha>(i => i.IdProduto);
         }
     }
 }
