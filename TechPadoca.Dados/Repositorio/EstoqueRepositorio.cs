@@ -29,6 +29,16 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
+        public void Cadastrar(Estoque estoque)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Alterar(Estoque estoque)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Alterar(int id, decimal quantidadeTotal, decimal quantidadeMinima, string local)
         {
             var produtoEmEstoque = SelecionarPorId(id);

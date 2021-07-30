@@ -1,6 +1,7 @@
 ﻿using TechPadoca.Dominio;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace TechPadoca.Dados.Repositorio
 {
@@ -27,5 +28,9 @@ namespace TechPadoca.Dados.Repositorio
             return listaItemVenda.OrderBy(x => x.Produto).ToList();
         }
 
+        public void Cadastrar(ItemVenda itemVenda)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

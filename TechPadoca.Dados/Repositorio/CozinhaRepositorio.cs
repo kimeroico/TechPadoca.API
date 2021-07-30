@@ -33,6 +33,16 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
+        public void NovaSolicitacaoDaLoja(Cozinha cozinha)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AlterarSolicitacao(Cozinha cozinha)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AlterarSolicitacao(int id, int quantidade)
         {
             var alterado = SelecionarPorId(id);

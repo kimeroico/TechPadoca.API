@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TechPadoca.Dominio;
 using TechPadoca.Dominio.Enum;
@@ -41,6 +42,16 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
+        public void Alterar(Produto produto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Cadastrar(Produto produto)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AlterarStatus(int id)
         {
             var produto = SelecionarPorId(id);
@@ -64,6 +75,11 @@ namespace TechPadoca.Dados.Repositorio
             return listaProduto.Any(x => x.Nome.Trim().ToLower() == nome.Trim().ToLower()
             && x.Marca.Trim().ToLower() == marca.Trim().ToLower()
             && x.Descricao.Trim().ToLower() == descricao.Trim().ToLower());
+        }
+
+        public List<Produto> SelecionarTudo()
+        {
+            return listaProduto.OrderBy(x => x.Nome).ToList();
         }
     }
 }

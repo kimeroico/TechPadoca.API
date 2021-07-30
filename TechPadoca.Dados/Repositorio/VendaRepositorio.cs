@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TechPadoca.Dominio;
 using TechPadoca.Dominio.Enum;
@@ -32,6 +33,12 @@ namespace TechPadoca.Dados.Repositorio
             }
             venda.Status = StatusDaVenda.Terminada;
         }
+
+        public void Cadastrar(Venda venda)
+        {
+            throw new NotImplementedException();
+        }
+
         public Venda SelecionarPorId(int id)
         {
             return listaVenda.FirstOrDefault(x => x.Id == id);
