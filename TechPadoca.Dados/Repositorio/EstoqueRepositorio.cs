@@ -69,8 +69,21 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        private bool VerificarQuantidade(Estoque produtoEmEstoque, decimal quantidadePedida)
+        public bool VerificarQuantidade(Estoque produtoEmEstoque, decimal quantidadePedida)
         {
+            if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
+            {
+                Console.WriteLine("Não existe quantidade suficiente.");
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool VerificarQuantidade(Produto produto, decimal quantidadePedida)
+        {
+            var produtoEmEstoque = SelecionarPorProdutoId(produto);
+
             if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
             {
                 Console.WriteLine("Não existe quantidade suficiente.");

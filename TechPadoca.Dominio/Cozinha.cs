@@ -10,7 +10,7 @@ namespace TechPadoca.Dominio
         public decimal QuantidadeProduzida { get; set; }
         public ProducaoStatusEnum StatusDeProducao { get; set; }
 
-        public void Cadastrar(int id, Produto produtoFabricado, int quantidadeProduzida)
+        public void Cadastrar(int id, Produto produtoFabricado, decimal quantidadeProduzida)
         {
             Id = id;
             ProdutoFabricado = produtoFabricado;
@@ -18,7 +18,7 @@ namespace TechPadoca.Dominio
             StatusDeProducao = ProducaoStatusEnum.Recebido;
         }
 
-        public void Alterar(int quantidadeProduzida)
+        public void Alterar(decimal quantidadeProduzida)
         {
             QuantidadeProduzida = (quantidadeProduzida <= 0) ? QuantidadeProduzida : quantidadeProduzida;
         }

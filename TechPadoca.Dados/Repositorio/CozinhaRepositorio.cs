@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechPadoca.Dominio;
+using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
@@ -27,6 +28,7 @@ namespace TechPadoca.Dados.Repositorio
             }
 
             listaCozinha.Add(novaSolicitacao);
+            ExecutandoProcesso(novaSolicitacao);
             return true;
         }
 
@@ -37,19 +39,47 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public bool VerificarReceita(Cozinha solicitacao)
+        public bool ExecutandoProcesso(Cozinha solicitacao)
         {
             var receita = new ReceitaRepositorio();
             var listaReceita = receita.SelecionarReceitaCompleta(solicitacao.ProdutoFabricado.Id);
 
-            foreach (var x in listaReceita)
+            if (VerificarNoEstoque(listaReceita, solicitacao))
             {
-                var n = new EstoqueRepositorio();
-                n.MandarParaCozinha(x.QtdIngrediente, x.ProdIngrediente);
-
+                return false;
             }
 
+            RetiraDoEstoque(listaReceita, solicitacao);
             return true;
+        }
+
+        private void RetiraDoEstoque(List<Receita> lista, Cozinha solicitacao)
+        {
+            foreach (var x in lista)
+            {
+                var n = new EstoqueRepositorio();
+                n.MandarParaCozinha(x.QtdIngrediente * solicitacao.QuantidadeProduzida, x.ProdIngrediente);
+            }
+            solicitacao.AlterarStatus(ProducaoStatusEnum.Produzindo);
+        }
+
+        private bool VerificarNoEstoque(List<Receita> lista, Cozinha solicitacao)
+        {
+            var count = 0;
+            foreach (var x in lista)
+            {
+                var n = new EstoqueRepositorio();
+                if (n.VerificarQuantidade(x.ProdIngrediente, x.QtdIngrediente*solicitacao.QuantidadeProduzida))
+                {
+                    count++;
+                }
+            }
+            if (count > 0)
+            {
+                solicitacao.AlterarStatus(ProducaoStatusEnum.Cancelado);
+                return true;
+            }            
+            return false;
         }
 
         public Cozinha SelecionarPorId(int id) => listaCozinha.FirstOrDefault(x => x.Id == id);
