@@ -17,7 +17,7 @@ namespace TechPadoca.Dados.Repositorio
             listaCozinha = new List<Cozinha>();
         }
 
-        public bool NovaSolicitacaoDaLoja(Produto produto, int quantidade)
+        public bool NovaSolicitacaoDaLoja(Produto produto, decimal quantidade)
         {
             var novaSolicitacao = new Cozinha();
             novaSolicitacao.Cadastrar(listaCozinha.Count + 1, produto, quantidade);
@@ -29,6 +29,7 @@ namespace TechPadoca.Dados.Repositorio
 
             listaCozinha.Add(novaSolicitacao);
             ExecutandoProcesso(novaSolicitacao);
+            novaSolicitacao.AlterarStatus(ProducaoStatusEnum.Entregue);
             return true;
         }
 

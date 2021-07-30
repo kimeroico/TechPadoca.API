@@ -51,7 +51,13 @@ namespace TechPadoca.Dados.Repositorio
 
         public void SolicitarProdutoParaCozinha(Produto produto, decimal quantidadeSolicita)
         {
-            
+            var solicitado = SelecionePorIdProduto(produto);
+            var cozinha = new CozinhaRepositorio();
+
+            if (cozinha.NovaSolicitacaoDaLoja(solicitado.Produto, quantidadeSolicita))
+            {
+                solicitado.AdicionarProduto(quantidadeSolicita);
+            }
         }
 
         public bool ProdutoVendido(Produto produto, decimal quantidadeVendida)
