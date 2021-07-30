@@ -4,29 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechPadoca.Dominio.Interface;
-
+using System;
 
 namespace TechPadoca.Dominio
 {
     public class Venda : IEntity
     {
         public int Id { get; set; }
-        public List<ItemVenda> Items { get; set; }
         public decimal ValorTotal { get; set; }
         public decimal Desconto { get; set; }
-        public StatusDaVenda Status { get; set; }
+        public string DataDaVenda { get; set; }
 
-        public void Cadastrar(int id, List<ItemVenda> items, decimal valorTotal, decimal desconto)
-        {           
+        public void Cadastrar(int id, decimal valorTotal, decimal desconto)
+        {
             Id = id;
-            Items.AddRange(items);
             ValorTotal = valorTotal;
             Desconto = desconto;
-            Status = StatusDaVenda.Iniciada;
+            var dataAgora = DateTime.Now;
+            DataDaVenda = String.Format("{0:yyyy/MM/dd}", dataAgora);
         }
-        public override string ToString()
+
+        public void AdicionarTotal(decimal valor)
         {
-            return $"{Items} | {ValorTotal} | {Desconto} | {Status}";
+            if (valor > 0)
+            {
+                ValorTotal += valor;
+            }
         }
     }
 }

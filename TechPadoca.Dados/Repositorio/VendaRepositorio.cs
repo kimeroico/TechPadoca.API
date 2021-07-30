@@ -14,24 +14,20 @@ namespace TechPadoca.Dados.Repositorio
             listaVenda = new List<Venda>();
         }
 
-        public void Cadastrar(List<ItemVenda> items, decimal valorTotal, decimal desconto)
+        public bool Cadastrar(decimal valorTotal, decimal desconto)
         {
-            Venda venda = new Venda();
-            
-            venda.Cadastrar(listaVenda.Count + 1, items, valorTotal, desconto);
+            var venda = new Venda();            
+            venda.Cadastrar(listaVenda.Count + 1, valorTotal, desconto);
             listaVenda.Add(venda);
+            return true;
         }
-        public void VendaConcluida(Venda venda)
-        {
-            LojaRepositorio itemsVendidos = new LojaRepositorio();
-            var produtosVendidos = itemsVendidos.SelecionarTudo();
 
-            foreach(var p in produtosVendidos)
-            {
-                itemsVendidos.ProdutoVendido(p.Produto, p.Quantidade);
-            }
-            venda.Status = StatusDaVenda.Terminada;
+        public bool AdicionarValorTotal(Venda venda, decimal adicionado)
+        {
+            venda.AdicionarTotal(adicionado);
+            return true;
         }
+
         public Venda SelecionarPorId(int id)
         {
             return listaVenda.FirstOrDefault(x => x.Id == id);
