@@ -55,11 +55,5 @@ namespace TechPadoca.API.Controllers
         {
             _repo.SolicitarProdutoDoEstoque(id, quantidade);
         }
-
-        // DELETE api/<LojaController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
