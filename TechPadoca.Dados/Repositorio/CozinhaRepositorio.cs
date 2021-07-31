@@ -63,7 +63,7 @@
 //            foreach (var x in lista)
 //            {
 //                var n = new EstoqueRepositorio();
-//                if (n.VerificarQuantidade(x.ProdIngrediente, x.QtdIngrediente*solicitacao.QuantidadeProduzida))
+//                if (n.VerificarQuantidade(x.ProdIngrediente, x.QtdIngrediente * solicitacao.QuantidadeProduzida))
 //                {
 //                    count++;
 //                }
@@ -72,7 +72,7 @@
 //            {
 //                solicitacao.AlterarStatus(ProducaoStatusEnum.Cancelado);
 //                return true;
-//            }            
+//            }
 //            return false;
 //        }
 

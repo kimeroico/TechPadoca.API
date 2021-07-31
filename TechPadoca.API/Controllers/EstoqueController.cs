@@ -45,11 +45,5 @@ namespace TechPadoca.API.Controllers
         {            
             _repo.Alterar(id, dto.QuantidadeTotal, dto.QuantidadeMinima, dto.Local);
         }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            _repo
-        }
     }
 }
