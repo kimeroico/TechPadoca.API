@@ -31,7 +31,7 @@ namespace TechPadoca.API.Controllers
         }
 
         // POST api/<ProdutoController>
-        [HttpPost("cadastra")]
+        [HttpPost("cadastrar")]
         public void Post([FromBody] ProdutoDTO dto)
         {
             var produto = new Produto();

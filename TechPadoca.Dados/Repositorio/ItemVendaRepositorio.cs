@@ -16,8 +16,7 @@ namespace TechPadoca.Dados.Repositorio
             }
             
             return base.Incluir(itemVenda);
-        }
-        
+        }        
 
         public bool AtualizarVenda(int id)
         {

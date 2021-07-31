@@ -19,7 +19,7 @@ namespace TechPadoca.API.Controllers
             _repo = new VendaRepositorio();
         }
 
-        [HttpGet]
+        [HttpGet("lista")]
         public IEnumerable<Venda> Get()
         {
             return _repo.SelecionarTudo();
@@ -31,7 +31,7 @@ namespace TechPadoca.API.Controllers
             return _repo.SelecionarPorId(id);
         }
 
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public void Post([FromBody] VendaDTO dto)
         {
             var venda = new Venda();

@@ -31,7 +31,7 @@ namespace TechPadoca.API.Controllers
             return _repo.SelecionarPorId(id);
         }
 
-        [HttpPost("cadastra")]
+        [HttpPost("cadastrar")]
         public void Post([FromBody] EstoqueDTO dto)
         {
             var estoque = new Estoque();
