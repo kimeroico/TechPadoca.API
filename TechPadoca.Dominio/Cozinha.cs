@@ -6,27 +6,19 @@ namespace TechPadoca.Dominio
     public class Cozinha : IEntity
     {
         public int Id { get; private set; }
-        //public int IdProduto { get; set; }
-        //public Produto ProdutoFabricado { get; private set; }
-        //public decimal QuantidadeProduzida { get; set; }
-        //public ProducaoStatusEnum StatusDeProducao { get; set; }
+        public int IdProduto { get; set; }
+        public Produto Produto { get; private set; }
+        public decimal QuantidadeProduzida { get; set; }
 
-        //public void Cadastrar(int id, Produto produtoFabricado, decimal quantidadeProduzida)
-        //{
-        //    Id = id;
-        //    ProdutoFabricado = produtoFabricado;
-        //    QuantidadeProduzida = quantidadeProduzida;
-        //    StatusDeProducao = ProducaoStatusEnum.Recebido;
-        //}
+        public void Cadastrar(int idProduto, decimal quantidadeProduzida)
+        {
+            IdProduto = idProduto;
+            QuantidadeProduzida = quantidadeProduzida;
+        }
 
-        //public void Alterar(decimal quantidadeProduzida)
-        //{
-        //    QuantidadeProduzida = (quantidadeProduzida <= 0) ? QuantidadeProduzida : quantidadeProduzida;
-        //}
-
-        //public void AlterarStatus(ProducaoStatusEnum idStatus) 
-        //{
-        //    StatusDeProducao = idStatus;
-        //}
+        public void Alterar(decimal quantidadeProduzida)
+        {
+            QuantidadeProduzida = (quantidadeProduzida <= 0) ? QuantidadeProduzida : quantidadeProduzida;
+        }
     }
 }

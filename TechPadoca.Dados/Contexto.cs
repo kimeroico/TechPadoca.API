@@ -13,6 +13,9 @@ namespace TechPadoca.Dados
         public DbSet<Produto> Produto { get; set; }
         public DbSet<Receita> Receita { get; set; }
         public DbSet<Venda> Venda { get; set; }
+        public DbSet<Ingrediente> Ingrediente { get; set; }
+        public DbSet<IngredienteEstoque> IngredienteEstoque { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,13 +25,15 @@ namespace TechPadoca.Dados
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new CozinhaMap());
+            modelBuilder.ApplyConfiguration(new CozinhaMap());
             modelBuilder.ApplyConfiguration(new EstoqueMap());
             modelBuilder.ApplyConfiguration(new ItemVendaMap());
             modelBuilder.ApplyConfiguration(new LojaMap());
             modelBuilder.ApplyConfiguration(new ProdutoMap());
-            //modelBuilder.ApplyConfiguration(new ReceitaMap());
+            modelBuilder.ApplyConfiguration(new ReceitaMap());
             modelBuilder.ApplyConfiguration(new VendaMap());
+            modelBuilder.ApplyConfiguration(new IngredienteMap());
+            modelBuilder.ApplyConfiguration(new IngredienteEstoqueMap());
 
         }
     }

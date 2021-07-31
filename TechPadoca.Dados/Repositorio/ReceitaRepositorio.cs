@@ -9,28 +9,14 @@ using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
-    public class ReceitaRepositorio
+    public class ReceitaRepositorio : BaseRepositorio<Receita>
     {
-        //private List<Receita> listaDaReceita;
-
-        //public ReceitaRepositorio()
-        //{
-        //    listaDaReceita = new List<Receita>();
-        //}
-
-        //public bool Incluir(Produto prodFabricado, Produto prodIngrediente, decimal qtdIngrediente)
-        //{
-        //    var novaReceita = new Receita();
-        //    novaReceita.Cadastrar(listaDaReceita.Count + 1, prodFabricado, prodIngrediente, qtdIngrediente);
-
-        //    if (Existe(novaReceita))
-        //    {
-        //        return false;
-        //    }
-
-        //    listaDaReceita.Add(novaReceita);
-        //    return true;
-        //}
+        public bool Incluir(int idProduto, int idIngrediente, decimal qtdIngrediente)
+        {
+            var novaReceita = new Receita();
+            novaReceita.Cadastrar(idProduto, idIngrediente, qtdIngrediente);
+            return base.Incluir(novaReceita);
+        }
 
         //public bool Alterar(int id, Produto prodFabricado, Produto prodIngrediente, decimal qtdIngrediente)
         //{
@@ -45,12 +31,6 @@ namespace TechPadoca.Dados.Repositorio
         //    return true;
         //}
 
-        //public List<Receita> SelecionarReceitaCompleta(int id) => listaDaReceita.Where(x => x.ProdFabricado.Id == id).ToList();
-
-        //public Receita SelecionarPorId(int id) => listaDaReceita.FirstOrDefault(x => x.Id == id);
-
-        //private bool Existe(Receita receita) => listaDaReceita.Any(x => x.ProdFabricado == receita.ProdFabricado && x.ProdIngrediente == receita.ProdIngrediente);
-
-        //private bool Existe(Produto prodFabricado, Produto prodIngrediente) => listaDaReceita.Any(x => x.ProdFabricado == prodFabricado && x.ProdIngrediente == prodIngrediente);
+        public List<Receita> SelecionarReceitaCompleta(int id) => contexto.Receita.Where(x => x.IdProduto == id).ToList();
     }
 }
