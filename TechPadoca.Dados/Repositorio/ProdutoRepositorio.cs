@@ -29,10 +29,18 @@ namespace TechPadoca.Dados.Repositorio
             return base.Alterar(prodAlterado);
         }
 
-        public void AlterarStatus(int id)
+        public void AlterarOff(int id)
         {
             var produto = SelecionarPorId(id);
-            produto.AlterarStatus();
+            produto.Desligar();
+            contexto.Produto.Update(produto);
+            contexto.SaveChanges();
+        }
+
+        public void AlterarOn(int id)
+        {
+            var produto = SelecionarPorId(id);
+            produto.Ligar();
             contexto.Produto.Update(produto);
             contexto.SaveChanges();
         }
