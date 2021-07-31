@@ -11,6 +11,7 @@ namespace TechPadoca.Dominio
     public class Loja : IEntity
     {
         public int Id { get; set; }
+        public int ProdutoId { get; set; }
         public Produto Produto { get; set; }
         public decimal Quantidade { get; set; }
         public decimal QuantidadeMinima { get; set; }
