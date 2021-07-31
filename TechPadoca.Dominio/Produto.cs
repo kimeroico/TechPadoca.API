@@ -15,6 +15,7 @@ namespace TechPadoca.Dominio
         public bool Status { get; set; }
         public Cozinha Cozinha { get; set; }
         public Estoque Estoque { get; set; }
+        public Receita Receita { get; set; }
         public Loja Loja { get; set; }
         public ItemVenda ItemVenda { get; set; }
 
