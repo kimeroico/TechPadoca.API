@@ -4,24 +4,17 @@ using System.Linq;
 
 namespace TechPadoca.Dados.Repositorio
 {
-    public class ItemVendaRepositorio
+    public class ItemVendaRepositorio : BaseRepositorio<ItemVenda>
     {
-        private List<ItemVenda> listaItemVenda;
-
-        public ItemVendaRepositorio()
-        {
-            listaItemVenda = new List<ItemVenda>();
-        }
-
         public bool Incluir(Produto produto, Venda venda, decimal quantidade)
         {
             var itemVenda = new ItemVenda();
-            itemVenda.Cadastrar(listaItemVenda.Count + 1, produto, venda, quantidade);
+            itemVenda.Cadastrar(produto, venda, quantidade);
             if (Existe(itemVenda))
             {
                 return false;
             }
-            listaItemVenda.Add(itemVenda);
+            base.Incluir(itemVenda);
             ProdutoVendido(itemVenda.Produto, itemVenda.Quantidade);
             AdicionandoNoTotal(itemVenda.ValorUnitario, itemVenda.Quantidade, itemVenda);
             return true;
@@ -43,12 +36,12 @@ namespace TechPadoca.Dados.Repositorio
 
         private bool Existe(ItemVenda venda)
         {
-            return listaItemVenda.Any(x => x.Produto == venda.Produto && x.Venda == venda.Venda);
+            return contexto.ItemVenda.Any(x => x.Produto == venda.Produto && x.Venda == venda.Venda);
         }
 
-        public List<ItemVenda> SelecionarTudo()
+        public override List<ItemVenda> SelecionarTudo()
         {
-            return listaItemVenda.OrderBy(x => x.Produto).ToList();
+            return base.SelecionarTudo().OrderBy(x => x.Produto.Nome).ToList();
         }
 
     }

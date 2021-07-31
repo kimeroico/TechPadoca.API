@@ -6,16 +6,6 @@ namespace TechPadoca.Dados
 {
     public class Contexto : DbContext
     {
-        public Contexto() : base()
-        {
-            
-        }
-
-        public Contexto(DbContextOptions options) : base(options)
-        {
-            
-        }
-
         public DbSet<Cozinha> Cozinha { get; set; }
         public DbSet<Estoque> Estoque { get; set; }
         public DbSet<ItemVenda> ItemVenda { get; set; }
@@ -32,12 +22,12 @@ namespace TechPadoca.Dados
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CozinhaMap());
+            //modelBuilder.ApplyConfiguration(new CozinhaMap());
             modelBuilder.ApplyConfiguration(new EstoqueMap());
             modelBuilder.ApplyConfiguration(new ItemVendaMap());
             modelBuilder.ApplyConfiguration(new LojaMap());
             modelBuilder.ApplyConfiguration(new ProdutoMap());
-            modelBuilder.ApplyConfiguration(new ReceitaMap());
+            //modelBuilder.ApplyConfiguration(new ReceitaMap());
             modelBuilder.ApplyConfiguration(new VendaMap());
 
         }

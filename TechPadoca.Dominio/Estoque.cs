@@ -7,31 +7,28 @@ namespace TechPadoca.Dominio
     public class Estoque : IEntity
     {
         public int Id { get; set; }
-        public decimal QuantidadeTotal { get; set; }
-        public decimal QuantidadeMinima { get; set; }
+        public int QuantidadeTotal { get; set; }
+        public int QuantidadeMinima { get; set; }
         public int IdProduto { get; set; }
         public Produto Produto { get; set; }
         public string Local { get; set; }
-        public TipoQuantidadeEnum QtdTipo { get; set; }
 
-        public void Cadastrar(int id, decimal quantidadeTotal, decimal quantidadeMinima, Produto produto, string local, int qtdTpo)
+        public void Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
         {
-            Id = id;
             QuantidadeTotal = quantidadeTotal;
             QuantidadeMinima = quantidadeMinima;
             Produto = produto;
             Local = local;
-            QtdTipo = (TipoQuantidadeEnum)qtdTpo;
         }
 
-        public void Alterar(decimal quantidadeTotal, decimal quantidadeMinima, string local)
+        public void Alterar(int quantidadeTotal, int quantidadeMinima, string local)
         {
             QuantidadeTotal = (quantidadeTotal < 0) ? QuantidadeTotal : quantidadeTotal;
             QuantidadeMinima = (quantidadeMinima < 0) ? QuantidadeMinima : quantidadeMinima;
             Local = string.IsNullOrEmpty(local.Trim()) ? Local : local;
         }
 
-        public void MandarParaProduto(decimal quantidadeMandada)
+        public void MandarParaProduto(int quantidadeMandada)
         {
             QuantidadeTotal -= quantidadeMandada;
             NotificarNecessidadeDeCompra();

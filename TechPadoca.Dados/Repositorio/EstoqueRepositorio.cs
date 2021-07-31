@@ -6,48 +6,36 @@ using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
-    public class EstoqueRepositorio
+    public class EstoqueRepositorio : BaseRepositorio<Estoque>
     {
-        private List<Estoque> listaEstoque { get; set; }
-
-        public EstoqueRepositorio()
-        {
-            listaEstoque = new List<Estoque>();
-        }
-        public bool Cadastrar(decimal quantidadeTotal, decimal quantidadeMinima, Produto produto, string local, int qtdTipo)
+        public bool Incluir(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
         {
             var novoProdutoEstoque = new Estoque();
-            novoProdutoEstoque.Cadastrar(listaEstoque.Count + 1, quantidadeTotal, quantidadeMinima, produto, local, qtdTipo);
+            novoProdutoEstoque.Cadastrar(quantidadeTotal, quantidadeMinima, produto, local);
 
             if (Existe(novoProdutoEstoque))
             {
                 return false;
             }
 
-            listaEstoque.Add(novoProdutoEstoque);
-
-            return true;
+            return base.Incluir(novoProdutoEstoque);
         }
 
-        public bool Alterar(int id, decimal quantidadeTotal, decimal quantidadeMinima, string local)
+        public bool Alterar(int id, int quantidadeTotal, int quantidadeMinima, string local)
         {
             var produtoEmEstoque = SelecionarPorId(id);
 
-            if (LocalEstaOcupado(local))
-            {
-                return false;
-            }
-
             produtoEmEstoque.Alterar(quantidadeTotal, quantidadeMinima, local);
-            return true;
+
+            return base.Alterar(produtoEmEstoque);
            
         }
 
-        public bool MandarParaLoja(decimal quantidade, Produto prodloja)
+        public bool MandarParaLoja(int quantidade, Produto prodloja)
         {
             var produtoEmEstoque = SelecionarPorProdutoId(prodloja);
 
-            if (VerificarQuantidade(produtoEmEstoque, quantidade) || VerificarCategoria(produtoEmEstoque))
+            if (VerificarQuantidade(produtoEmEstoque, quantidade))
             {
                 return false;
             }
@@ -56,20 +44,20 @@ namespace TechPadoca.Dados.Repositorio
             return true;                                        
         }
 
-        public bool MandarParaCozinha(decimal quantidade, Produto prodCozinha)
-        {
-            var produtoEmEstoque = SelecionarPorProdutoId(prodCozinha);
+        //public bool MandarParaCozinha(decimal quantidade, Produto prodCozinha)
+        //{
+        //    var produtoEmEstoque = SelecionarPorProdutoId(prodCozinha);
 
-            if (VerificarQuantidade(produtoEmEstoque, quantidade) || !VerificarCategoria(produtoEmEstoque))
-            {
-                return false;
-            }
+        //    if (VerificarQuantidade(produtoEmEstoque, quantidade) || !VerificarCategoria(produtoEmEstoque))
+        //    {
+        //        return false;
+        //    }
 
-            produtoEmEstoque.MandarParaProduto(quantidade);
-            return true;
-        }
+        //    produtoEmEstoque.MandarParaProduto(quantidade);
+        //    return true;
+        //}
 
-        public bool VerificarQuantidade(Estoque produtoEmEstoque, decimal quantidadePedida)
+        public bool VerificarQuantidade(Estoque produtoEmEstoque, int quantidadePedida)
         {
             if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
             {
@@ -80,7 +68,7 @@ namespace TechPadoca.Dados.Repositorio
             return false;
         }
 
-        public bool VerificarQuantidade(Produto produto, decimal quantidadePedida)
+        public bool VerificarQuantidade(Produto produto, int quantidadePedida)
         {
             var produtoEmEstoque = SelecionarPorProdutoId(produto);
 
@@ -93,25 +81,10 @@ namespace TechPadoca.Dados.Repositorio
             return false;
         }
 
-        private bool VerificarCategoria(Estoque produtoEmEstoque)
-        {
-            if (produtoEmEstoque.Produto.Categoria == CategoriaDeProdutoEnum.Ingrediente)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         private bool Existe(Estoque estoque)
         {
             return listaEstoque.Any(x => x.Local.Trim().ToLower() == estoque.Local.Trim().ToLower()
             && x.Produto.Id == estoque.Produto.Id);
-        }
-
-        public Estoque SelecionarPorId(int id)
-        {
-            return listaEstoque.FirstOrDefault(x => x.Id == id);
         }
 
         public Estoque SelecionarPorProdutoId(Produto produto)
@@ -124,9 +97,9 @@ namespace TechPadoca.Dados.Repositorio
             return listaEstoque.Any(x => x.Local.Trim().ToLower() == local.Trim().ToLower());
         }
 
-        public List<Estoque> SelecionarTudo()
+        public override List<Estoque> SelecionarTudo()
         {
-            return listaEstoque.OrderBy(x => x.Produto.Nome).ToList();
+            return base.SelecionarTudo().OrderBy(x => x.Produto.Nome).ToList();
         }
     }
 }

@@ -1,95 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechPadoca.Dominio;
-using TechPadoca.Dominio.Enum;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using TechPadoca.Dominio;
+//using TechPadoca.Dominio.Enum;
 
-namespace TechPadoca.Dados.Repositorio
-{
-    public class CozinhaRepositorio
-    {
-        private List<Cozinha> listaCozinha;
+//namespace TechPadoca.Dados.Repositorio
+//{
+//    public class CozinhaRepositorio : BaseRepositorio<Cozinha>
+//    {
+//        public bool NovaSolicitacaoDaLoja(Produto produto, decimal quantidade)
+//        {
+//            var novaSolicitacao = new Cozinha();
+//            novaSolicitacao.Cadastrar(listaCozinha.Count + 1, produto, quantidade);
 
-        public CozinhaRepositorio()
-        {
-            listaCozinha = new List<Cozinha>();
-        }
+//            if (Existe(novaSolicitacao))
+//            {
+//                return false;
+//            }
 
-        public bool NovaSolicitacaoDaLoja(Produto produto, decimal quantidade)
-        {
-            var novaSolicitacao = new Cozinha();
-            novaSolicitacao.Cadastrar(listaCozinha.Count + 1, produto, quantidade);
+//            listaCozinha.Add(novaSolicitacao);
+//            ExecutandoProcesso(novaSolicitacao);
+//            novaSolicitacao.AlterarStatus(ProducaoStatusEnum.Entregue);
+//            return true;
+//        }
 
-            if (Existe(novaSolicitacao))
-            {
-                return false;
-            }
+//        public bool AlterarSolicitacao(int id, int quantidade)
+//        {
+//            var alterado = SelecionarPorId(id);
+//            alterado.Alterar(quantidade);
+//            return true;
+//        }
 
-            listaCozinha.Add(novaSolicitacao);
-            ExecutandoProcesso(novaSolicitacao);
-            novaSolicitacao.AlterarStatus(ProducaoStatusEnum.Entregue);
-            return true;
-        }
+//        public bool ExecutandoProcesso(Cozinha solicitacao)
+//        {
+//            var receita = new ReceitaRepositorio();
+//            var listaReceita = receita.SelecionarReceitaCompleta(solicitacao.ProdutoFabricado.Id);
 
-        public bool AlterarSolicitacao(int id, int quantidade)
-        {
-            var alterado = SelecionarPorId(id);
-            alterado.Alterar(quantidade);
-            return true;
-        }
+//            if (VerificarNoEstoque(listaReceita, solicitacao))
+//            {
+//                return false;
+//            }
 
-        public bool ExecutandoProcesso(Cozinha solicitacao)
-        {
-            var receita = new ReceitaRepositorio();
-            var listaReceita = receita.SelecionarReceitaCompleta(solicitacao.ProdutoFabricado.Id);
+//            RetiraDoEstoque(listaReceita, solicitacao);
+//            return true;
+//        }
 
-            if (VerificarNoEstoque(listaReceita, solicitacao))
-            {
-                return false;
-            }
+//        private void RetiraDoEstoque(List<Receita> lista, Cozinha solicitacao)
+//        {
+//            foreach (var x in lista)
+//            {
+//                var n = new EstoqueRepositorio();
+//                n.MandarParaCozinha(x.QtdIngrediente * solicitacao.QuantidadeProduzida, x.ProdIngrediente);
+//            }
+//            solicitacao.AlterarStatus(ProducaoStatusEnum.Produzindo);
+//        }
 
-            RetiraDoEstoque(listaReceita, solicitacao);
-            return true;
-        }
+//        private bool VerificarNoEstoque(List<Receita> lista, Cozinha solicitacao)
+//        {
+//            var count = 0;
+//            foreach (var x in lista)
+//            {
+//                var n = new EstoqueRepositorio();
+//                if (n.VerificarQuantidade(x.ProdIngrediente, x.QtdIngrediente*solicitacao.QuantidadeProduzida))
+//                {
+//                    count++;
+//                }
+//            }
+//            if (count > 0)
+//            {
+//                solicitacao.AlterarStatus(ProducaoStatusEnum.Cancelado);
+//                return true;
+//            }            
+//            return false;
+//        }
 
-        private void RetiraDoEstoque(List<Receita> lista, Cozinha solicitacao)
-        {
-            foreach (var x in lista)
-            {
-                var n = new EstoqueRepositorio();
-                n.MandarParaCozinha(x.QtdIngrediente * solicitacao.QuantidadeProduzida, x.ProdIngrediente);
-            }
-            solicitacao.AlterarStatus(ProducaoStatusEnum.Produzindo);
-        }
+//        public Cozinha SelecionarPorId(int id) => listaCozinha.FirstOrDefault(x => x.Id == id);
 
-        private bool VerificarNoEstoque(List<Receita> lista, Cozinha solicitacao)
-        {
-            var count = 0;
-            foreach (var x in lista)
-            {
-                var n = new EstoqueRepositorio();
-                if (n.VerificarQuantidade(x.ProdIngrediente, x.QtdIngrediente*solicitacao.QuantidadeProduzida))
-                {
-                    count++;
-                }
-            }
-            if (count > 0)
-            {
-                solicitacao.AlterarStatus(ProducaoStatusEnum.Cancelado);
-                return true;
-            }            
-            return false;
-        }
-
-        public Cozinha SelecionarPorId(int id) => listaCozinha.FirstOrDefault(x => x.Id == id);
-
-        private bool Existe(Cozinha pedido)
-        {
-            return listaCozinha.Any(x => x.ProdutoFabricado == pedido.ProdutoFabricado
-            && x.QuantidadeProduzida == pedido.QuantidadeProduzida
-            && x.StatusDeProducao == pedido.StatusDeProducao);
-        }
-    }
-}
+//        private bool Existe(Cozinha pedido)
+//        {
+//            return listaCozinha.Any(x => x.ProdutoFabricado == pedido.ProdutoFabricado
+//            && x.QuantidadeProduzida == pedido.QuantidadeProduzida
+//            && x.StatusDeProducao == pedido.StatusDeProducao);
+//        }
+//    }
+//}
