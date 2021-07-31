@@ -6,10 +6,10 @@ namespace TechPadoca.Dados.Repositorio
 {
     public class ItemVendaRepositorio : BaseRepositorio<ItemVenda>
     {
-        public bool Incluir(Produto produto, Venda venda, decimal quantidade)
+        public bool Incluir(Produto produto, Venda venda, int quantidade)
         {
             var itemVenda = new ItemVenda();
-            itemVenda.Cadastrar(produto, venda, quantidade);
+            itemVenda.Cadastrar(produto.Id, venda.Id, quantidade, produto.ValorUnitario);
             if (Existe(itemVenda))
             {
                 return false;
@@ -20,14 +20,14 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public bool ProdutoVendido(Produto produto, decimal quantidade)
+        public bool ProdutoVendido(Produto produto, int quantidade)
         {
             var produtoNaLoja = new LojaRepositorio();
             produtoNaLoja.ProdutoVendido(produto, quantidade);
             return true;
         }
         
-        public bool AdicionandoNoTotal(decimal valor, decimal quantidade, ItemVenda itemVenda)
+        public bool AdicionandoNoTotal(decimal valor, int quantidade, ItemVenda itemVenda)
         {
             var total = valor * quantidade;
             itemVenda.Venda.AdicionarTotal(total);

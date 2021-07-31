@@ -17,7 +17,7 @@ namespace TechPadoca.Dados.Map
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ValorTotal).HasColumnType("decimal(10,2)").IsRequired();
             builder.Property(x => x.Desconto).HasColumnType("decimal(10,2)").IsRequired();
-            builder.Property(x => x.DataDaVenda).HasColumnType("datetime").IsRequired();
+            builder.Property(x => x.DataDaVenda).HasColumnType("varchar(100)").IsRequired();
             builder.HasMany<ItemVenda>(p => p.ItemVendas).WithOne(s => s.Venda).HasForeignKey(i => i.IdVenda);
         }
     }

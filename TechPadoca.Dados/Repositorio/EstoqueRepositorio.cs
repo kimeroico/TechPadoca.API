@@ -11,7 +11,7 @@ namespace TechPadoca.Dados.Repositorio
         public bool Incluir(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
         {
             var novoProdutoEstoque = new Estoque();
-            novoProdutoEstoque.Cadastrar(quantidadeTotal, quantidadeMinima, produto, local);
+            novoProdutoEstoque.Cadastrar(quantidadeTotal, quantidadeMinima, produto.Id, local);
 
             if (Existe(novoProdutoEstoque))
             {
@@ -41,6 +41,8 @@ namespace TechPadoca.Dados.Repositorio
             }
             
             produtoEmEstoque.MandarParaProduto(quantidade);
+            contexto.Estoque.Update(produtoEmEstoque);
+            contexto.SaveChanges();
             return true;                                        
         }
 

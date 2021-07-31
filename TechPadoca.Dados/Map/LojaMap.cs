@@ -16,9 +16,8 @@ namespace TechPadoca.Dados.Map
             builder.ToTable("Loja");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ProdutoId).HasColumnType("int").IsRequired();
-            builder.Property(x => x.Quantidade).HasColumnType("decimal(10,2)").IsRequired();
-            builder.Property(x => x.QuantidadeMinima).HasColumnType("decimal(10,2)").IsRequired();
-            builder.Property(x => x.QtdTipo).HasColumnType("int").IsRequired();
+            builder.Property(x => x.Quantidade).HasColumnType("int").IsRequired();
+            builder.Property(x => x.QuantidadeMinima).HasColumnType("int").IsRequired();
             builder.HasOne<Produto>(p => p.Produto).WithOne(d => d.Loja).HasForeignKey<Loja>(i => i.ProdutoId);
         }
     }

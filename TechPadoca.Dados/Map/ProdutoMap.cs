@@ -17,11 +17,10 @@ namespace TechPadoca.Dados.Map
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Nome).HasColumnType("varchar(100)").IsRequired();
             builder.Property(x => x.Marca).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(x => x.Categoria).HasColumnType("int").IsRequired();
             builder.Property(x => x.ValorUnitario).HasColumnType("decimal(10,2)").IsRequired();
             builder.Property(x => x.Descricao).HasColumnType("varchar(150)").IsRequired();
-            builder.Property(x => x.QtdTipo).HasColumnType("int").IsRequired();
-            builder.Property(x => x.Status).IsRequired();          
+            builder.Property(x => x.Status).IsRequired();
+            builder.HasMany<ItemVenda>(p => p.ItemVenda).WithOne(s => s.Produto).HasForeignKey(i => i.IdProduto);
         }
     }
 }

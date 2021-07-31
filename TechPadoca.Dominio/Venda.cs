@@ -16,9 +16,8 @@ namespace TechPadoca.Dominio
         public string DataDaVenda { get; set; }
         public List<ItemVenda> ItemVendas { get; set; }
 
-        public void Cadastrar(int id, decimal desconto)
+        public void Cadastrar(decimal desconto)
         {
-            Id = id;
             ValorTotal = 0;
             Desconto = desconto;
             var dataAgora = DateTime.Now;

@@ -5,63 +5,48 @@ using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
-    public class ProdutoRepositorio
+    public class ProdutoRepositorio : BaseRepositorio<Produto>
     {
-        private List<Produto> listaProduto;
-
-        public ProdutoRepositorio()
-        {
-           listaProduto = new List<Produto>();
-        }
-
-        public bool Cadastrar(string nome, int categoria, string marca, decimal valorUnitario, string descricao, int qtdTipo)
+        public bool Incluir(string nome, string marca, decimal valorUnitario, string descricao,)
         {
             Produto novoProduto = new Produto();
-            novoProduto.Cadastrar(listaProduto.Count + 1, nome, categoria, marca, valorUnitario, descricao, qtdTipo);
+            novoProduto.Cadastrar(nome, marca, valorUnitario, descricao);
 
             if (Existe(novoProduto))
             {
                 return false;
             }
 
-            listaProduto.Add(novoProduto);
-            return true;
+            return base.Incluir(novoProduto);
         }
 
         public bool Alterar(int id, string nome, string marca, decimal valorUnitario, string descricao)
         {
             var prodAlterado = SelecionarPorId(id);
 
-            if (Existe(nome, marca, descricao))
-            {
-                return false;
-            }
-
             prodAlterado.Alterar(nome, marca, valorUnitario, descricao);
-            return true;
+
+            return base.Alterar(prodAlterado);
         }
 
         public void AlterarStatus(int id)
         {
             var produto = SelecionarPorId(id);
             produto.AlterarStatus();
-        }
-
-        public Produto SelecionarPorId(int id)
-        {
-            return listaProduto.FirstOrDefault(x => x.Id == id);
+            contexto.Produto.Update(produto);
+            contexto.SaveChanges();
         }
 
         public bool Existe(Produto produto)
         {
-            return listaProduto.Any(x => x.Nome.Trim().ToLower() == produto.Nome.Trim().ToLower()
+            return contexto.Produto.Any(x => x.Nome.Trim().ToLower() == produto.Nome.Trim().ToLower()
             && x.Marca.Trim().ToLower() == produto.Marca.Trim().ToLower()
             && x.Descricao.Trim().ToLower() == produto.Descricao.Trim().ToLower());
         }
 
         public bool Existe(string nome, string marca, string descricao)
         {
-            return listaProduto.Any(x => x.Nome.Trim().ToLower() == nome.Trim().ToLower()
+            return contexto.Produto.Any(x => x.Nome.Trim().ToLower() == nome.Trim().ToLower()
             && x.Marca.Trim().ToLower() == marca.Trim().ToLower()
             && x.Descricao.Trim().ToLower() == descricao.Trim().ToLower());
         }

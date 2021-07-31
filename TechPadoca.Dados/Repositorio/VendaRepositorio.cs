@@ -5,34 +5,22 @@ using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {
-    public class VendaRepositorio
+    public class VendaRepositorio : BaseRepositorio<Venda>
     {
-        private List<Venda> listaVenda;
-
-        public VendaRepositorio()
-        {
-            listaVenda = new List<Venda>();
-        }
-
-        public bool Cadastrar(decimal desconto)
+        public bool Incluir(decimal desconto)
         {
             var venda = new Venda();            
-            venda.Cadastrar(listaVenda.Count + 1, desconto);
-            listaVenda.Add(venda);
-            return true;
+            venda.Cadastrar(desconto);
+            return base.Incluir(venda);
         }
 
         public bool AdicionarValorTotal(Venda venda, decimal adicionado)
         {
             venda.AdicionarTotal(adicionado);
+            contexto.Venda.Update(venda);
+            contexto.SaveChanges();
             return true;
         }
-
-        public Venda SelecionarPorId(int id)
-        {
-            return listaVenda.FirstOrDefault(x => x.Id == id);
-        }
     }
-
 
 }

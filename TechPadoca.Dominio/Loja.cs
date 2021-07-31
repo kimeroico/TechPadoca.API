@@ -13,26 +13,23 @@ namespace TechPadoca.Dominio
         public int Id { get; set; }
         public int ProdutoId { get; set; }
         public Produto Produto { get; set; }
-        public decimal Quantidade { get; set; }
-        public decimal QuantidadeMinima { get; set; }
-        public TipoQuantidadeEnum QtdTipo { get; set; }
+        public int Quantidade { get; set; }
+        public int QuantidadeMinima { get; set; }
    
-        public void Cadastrar(int id, Produto produto, decimal quantidade, decimal quantidadeMinima, int qtdTipo)
+        public void Cadastrar(int idProduto, int quantidade, int quantidadeMinima)
         {
-            Id = id;
-            Produto = produto;
+            ProdutoId = idProduto;
             Quantidade = quantidade;
             QuantidadeMinima = quantidadeMinima;
-            QtdTipo = (TipoQuantidadeEnum)qtdTipo;
         }
 
-        public void Alterar(decimal quantidade, decimal quantidadeMinima)
+        public void Alterar(int quantidade, int quantidadeMinima)
         {
             Quantidade = (quantidade < 0) || (quantidade < quantidadeMinima) ? Quantidade : quantidade;
             QuantidadeMinima = (quantidadeMinima < 0) ? QuantidadeMinima : quantidadeMinima;
         }
 
-        public void AdicionarProduto(decimal quantidade)
+        public void AdicionarProduto(int quantidade)
         {
             if (quantidade > 0)
             {
@@ -40,7 +37,7 @@ namespace TechPadoca.Dominio
             }
         }
 
-        public void RetirarProdutoVendido(decimal quantidade)
+        public void RetirarProdutoVendido(int quantidade)
         {
             Quantidade -= quantidade;
             NotificarNecessidadeDeReposicao();

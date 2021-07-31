@@ -13,11 +13,11 @@ namespace TechPadoca.Dominio
         public Produto Produto { get; set; }
         public string Local { get; set; }
 
-        public void Cadastrar(int quantidadeTotal, int quantidadeMinima, Produto produto, string local)
+        public void Cadastrar(int quantidadeTotal, int quantidadeMinima, int idProduto, string local)
         {
             QuantidadeTotal = quantidadeTotal;
             QuantidadeMinima = quantidadeMinima;
-            Produto = produto;
+            IdProduto = idProduto;
             Local = local;
         }
 
