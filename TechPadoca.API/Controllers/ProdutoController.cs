@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TechPadoca.API.DTO;
 using TechPadoca.Dados.Repositorio;
 using TechPadoca.Dominio;
@@ -55,13 +52,20 @@ namespace TechPadoca.API.Controllers
         public void Ativar(int id)
         {
             var produto = new Produto();
-            _repo.AlterarStatus(id);
+            _repo.AlterarOn(id);
         }
 
-        // DELETE api/<ProdutoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut("{id}/desativar")]
+        public void desativar(int id)
         {
+            var produto = new Produto();
+            _repo.AlterarOff(id);
         }
+
+        //// DELETE api/<ProdutoController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

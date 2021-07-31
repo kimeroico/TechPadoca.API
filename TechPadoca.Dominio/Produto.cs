@@ -35,9 +35,16 @@ namespace TechPadoca.Dominio
             Descricao = descricao;
         }
 
-        public void AlterarStatus()
+        public void Ligar()
         {
-            Status = !Status;
+            Status = true;
         }
+
+        public void Desligar()
+        {
+            Status = false;
+        }
+
+
     }
 }
