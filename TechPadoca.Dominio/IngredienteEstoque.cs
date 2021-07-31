@@ -15,6 +15,7 @@ namespace TechPadoca.Dominio
         public string Local { get; set; }
         public int IdIngrediente { get; set; }
         public Ingrediente Ingrediente { get; set; }
+        
 
         public void Cadastrar(decimal quantidadeTotal, decimal quantidadeMinima, string local, int idIngrediente)
         {
@@ -24,7 +25,7 @@ namespace TechPadoca.Dominio
             IdIngrediente = idIngrediente;
         }
 
-        public void MandarParaCozinha(int quantidadeMandada)
+        public void MandarParaCozinha(decimal quantidadeMandada)
         {
             QuantidadeTotal -= quantidadeMandada;
         }

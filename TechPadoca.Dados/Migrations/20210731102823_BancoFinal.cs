@@ -2,20 +2,21 @@
 
 namespace TechPadoca.Dados.Migrations
 {
-    public partial class PrimeBank : Migration
+    public partial class BancoFinal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Cozinha",
+                name: "Ingrediente",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cozinha", x => x.Id);
+                    table.PrimaryKey("PK_Ingrediente", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,18 +37,6 @@ namespace TechPadoca.Dados.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Receita",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Receita", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Venda",
                 columns: table => new
                 {
@@ -60,6 +49,48 @@ namespace TechPadoca.Dados.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Venda", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IngredienteEstoque",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuantidadeTotal = table.Column<decimal>(type: "decimal(20,5)", nullable: false),
+                    QuantidadeMinima = table.Column<decimal>(type: "decimal(20,5)", nullable: false),
+                    Local = table.Column<string>(type: "varchar(100)", nullable: false),
+                    IdIngrediente = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IngredienteEstoque", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IngredienteEstoque_Ingrediente_IdIngrediente",
+                        column: x => x.IdIngrediente,
+                        principalTable: "Ingrediente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cozinha",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdProduto = table.Column<int>(type: "int", nullable: false),
+                    QuantidadeProduzida = table.Column<decimal>(type: "decimal(20,5)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cozinha", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cozinha_Produto_IdProduto",
+                        column: x => x.IdProduto,
+                        principalTable: "Produto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,6 +137,33 @@ namespace TechPadoca.Dados.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Receita",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdProduto = table.Column<int>(type: "int", nullable: false),
+                    IdIngrediente = table.Column<int>(type: "int", nullable: false),
+                    QtdIngrediente = table.Column<decimal>(type: "decimal(20,5)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Receita", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Receita_Ingrediente_IdIngrediente",
+                        column: x => x.IdIngrediente,
+                        principalTable: "Ingrediente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Receita_Produto_IdProduto",
+                        column: x => x.IdProduto,
+                        principalTable: "Produto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ItemVendas",
                 columns: table => new
                 {
@@ -134,9 +192,20 @@ namespace TechPadoca.Dados.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cozinha_IdProduto",
+                table: "Cozinha",
+                column: "IdProduto");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Estoque_IdProduto",
                 table: "Estoque",
                 column: "IdProduto",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IngredienteEstoque_IdIngrediente",
+                table: "IngredienteEstoque",
+                column: "IdIngrediente",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -154,6 +223,16 @@ namespace TechPadoca.Dados.Migrations
                 table: "Loja",
                 column: "ProdutoId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receita_IdIngrediente",
+                table: "Receita",
+                column: "IdIngrediente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receita_IdProduto",
+                table: "Receita",
+                column: "IdProduto");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -163,6 +242,9 @@ namespace TechPadoca.Dados.Migrations
 
             migrationBuilder.DropTable(
                 name: "Estoque");
+
+            migrationBuilder.DropTable(
+                name: "IngredienteEstoque");
 
             migrationBuilder.DropTable(
                 name: "ItemVendas");
@@ -175,6 +257,9 @@ namespace TechPadoca.Dados.Migrations
 
             migrationBuilder.DropTable(
                 name: "Venda");
+
+            migrationBuilder.DropTable(
+                name: "Ingrediente");
 
             migrationBuilder.DropTable(
                 name: "Produto");

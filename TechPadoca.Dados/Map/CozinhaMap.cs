@@ -1,24 +1,21 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Metadata.Builders;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using TechPadoca.Dominio;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TechPadoca.Dominio;
 
-//namespace TechPadoca.Dados.Map
-//{
-//    public class CozinhaMap : IEntityTypeConfiguration<Cozinha>
-//    {
-//        //public void Configure(EntityTypeBuilder<Cozinha> builder)
-//        //{
-//        //    builder.ToTable("Cozinha");
-//        //    builder.HasKey(x => x.Id);
-//        //    builder.Property(x => x.QuantidadeProduzida).HasColumnType("decima(20,5)").IsRequired();
-//        //    builder.Property(x => x.StatusDeProducao).HasColumnType("int").IsRequired();
-//        //    builder.Property(x => x.IdProduto).HasColumnType("int").IsRequired();
-//        //    builder.HasOne<Produto>(p => p.ProdutoFabricado).WithOne(d => d.Cozinha).HasForeignKey<Cozinha>(i => i.IdProduto);
-//        //}
-//    }
-//}
+namespace TechPadoca.Dados.Map
+{
+    public class CozinhaMap : IEntityTypeConfiguration<Cozinha>
+    {
+        public void Configure(EntityTypeBuilder<Cozinha> builder)
+        {
+            builder.ToTable("Cozinha");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.QuantidadeProduzida).HasColumnType("decimal(20,5)").IsRequired();
+        }
+    }
+}

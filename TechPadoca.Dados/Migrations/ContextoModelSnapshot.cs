@@ -25,7 +25,15 @@ namespace TechPadoca.Dados.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("QuantidadeProduzida")
+                        .HasColumnType("decimal(20,5)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("IdProduto");
 
                     b.ToTable("Cozinha");
                 });
@@ -56,6 +64,50 @@ namespace TechPadoca.Dados.Migrations
                         .IsUnique();
 
                     b.ToTable("Estoque");
+                });
+
+            modelBuilder.Entity("TechPadoca.Dominio.Ingrediente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingrediente");
+                });
+
+            modelBuilder.Entity("TechPadoca.Dominio.IngredienteEstoque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdIngrediente")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Local")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("QuantidadeMinima")
+                        .HasColumnType("decimal(20,5)");
+
+                    b.Property<decimal>("QuantidadeTotal")
+                        .HasColumnType("decimal(20,5)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdIngrediente")
+                        .IsUnique();
+
+                    b.ToTable("IngredienteEstoque");
                 });
 
             modelBuilder.Entity("TechPadoca.Dominio.ItemVenda", b =>
@@ -147,7 +199,20 @@ namespace TechPadoca.Dados.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IdIngrediente")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("QtdIngrediente")
+                        .HasColumnType("decimal(20,5)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("IdIngrediente");
+
+                    b.HasIndex("IdProduto");
 
                     b.ToTable("Receita");
                 });
@@ -174,6 +239,17 @@ namespace TechPadoca.Dados.Migrations
                     b.ToTable("Venda");
                 });
 
+            modelBuilder.Entity("TechPadoca.Dominio.Cozinha", b =>
+                {
+                    b.HasOne("TechPadoca.Dominio.Produto", "Produto")
+                        .WithMany("Cozinha")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produto");
+                });
+
             modelBuilder.Entity("TechPadoca.Dominio.Estoque", b =>
                 {
                     b.HasOne("TechPadoca.Dominio.Produto", "Produto")
@@ -183,6 +259,17 @@ namespace TechPadoca.Dados.Migrations
                         .IsRequired();
 
                     b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("TechPadoca.Dominio.IngredienteEstoque", b =>
+                {
+                    b.HasOne("TechPadoca.Dominio.Ingrediente", "Ingrediente")
+                        .WithOne("IngredienteEstoque")
+                        .HasForeignKey("TechPadoca.Dominio.IngredienteEstoque", "IdIngrediente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingrediente");
                 });
 
             modelBuilder.Entity("TechPadoca.Dominio.ItemVenda", b =>
@@ -215,13 +302,43 @@ namespace TechPadoca.Dados.Migrations
                     b.Navigation("Produto");
                 });
 
+            modelBuilder.Entity("TechPadoca.Dominio.Receita", b =>
+                {
+                    b.HasOne("TechPadoca.Dominio.Ingrediente", "Ingrediente")
+                        .WithMany("Receita")
+                        .HasForeignKey("IdIngrediente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TechPadoca.Dominio.Produto", "Produto")
+                        .WithMany("Receita")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingrediente");
+
+                    b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("TechPadoca.Dominio.Ingrediente", b =>
+                {
+                    b.Navigation("IngredienteEstoque");
+
+                    b.Navigation("Receita");
+                });
+
             modelBuilder.Entity("TechPadoca.Dominio.Produto", b =>
                 {
+                    b.Navigation("Cozinha");
+
                     b.Navigation("Estoque");
 
                     b.Navigation("ItemVenda");
 
                     b.Navigation("Loja");
+
+                    b.Navigation("Receita");
                 });
 
             modelBuilder.Entity("TechPadoca.Dominio.Venda", b =>

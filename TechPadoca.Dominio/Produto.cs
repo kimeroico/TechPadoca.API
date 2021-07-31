@@ -12,11 +12,12 @@ namespace TechPadoca.Dominio
         public decimal ValorUnitario { get; set; }
         public string Descricao { get; set; }
         public bool Status { get; set; }
-        //public Cozinha Cozinha { get; set; }
         public Estoque Estoque { get; set; }
-        //public Receita Receita { get; set; }
         public Loja Loja { get; set; }
         public List<ItemVenda> ItemVenda { get; set; }
+        public List<Receita> Receita { get; set; }
+        public List<Cozinha> Cozinha { get; set; }
+
 
         public void Cadastrar(string nome, string marca, decimal valorUnitario, string descricao)
         {

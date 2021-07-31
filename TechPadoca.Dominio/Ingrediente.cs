@@ -11,6 +11,8 @@ namespace TechPadoca.Dominio
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        public IngredienteEstoque IngredienteEstoque { get; set; }
+        public List<Receita> Receita { get; set; }
 
         public void Cadastrar(string nome)
         {

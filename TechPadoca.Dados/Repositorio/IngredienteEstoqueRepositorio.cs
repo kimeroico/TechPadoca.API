@@ -22,7 +22,29 @@ namespace TechPadoca.Dados.Repositorio
             return base.Incluir(inEstoque);
         }
 
+        public bool VerificaQuantidade(int idIngrediente, decimal quantidade)
+        {
+            var selecao = SelecionaPeloIdIngrediente(idIngrediente);
+            if (selecao.QuantidadeTotal < quantidade)
+            {
+                return true;
+            }
+            return false;
+        }
 
+        public bool MandarParaCozinha(int idIngrediente, decimal quantidade)
+        {
+            var selecao = SelecionaPeloIdIngrediente(idIngrediente);
+            selecao.MandarParaCozinha(quantidade);
+            contexto.IngredienteEstoque.Update(selecao);
+            contexto.SaveChanges();
+            return true;
+        }
+
+        private IngredienteEstoque SelecionaPeloIdIngrediente(int id)
+        {
+            return contexto.IngredienteEstoque.FirstOrDefault(x => x.IdIngrediente == id);
+        }
         private bool Existe(IngredienteEstoque a) => contexto.IngredienteEstoque.Any(x => x.IdIngrediente == a.IdIngrediente);
     }
 }

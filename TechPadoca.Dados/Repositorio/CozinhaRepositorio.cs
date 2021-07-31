@@ -10,31 +10,34 @@ namespace TechPadoca.Dados.Repositorio
 {
     public class CozinhaRepositorio : BaseRepositorio<Cozinha>
     {
-        public bool Incluir(int idProduto, decimal quantidade)
+        public bool Incluir(int idProduto, int quantidade)
         {
             var novaSolicitacao = new Cozinha();
             novaSolicitacao.Cadastrar(idProduto, quantidade);
             return base.Incluir(novaSolicitacao);
         }
 
-        public bool AlterarSolicitacao(int id, int quantidade)
+        public bool ExecutandoProcesso(int idCozinha)
         {
-            var alterado = SelecionarPorId(id);
-            alterado.Alterar(quantidade);
-            return true;
-        }
-
-        public bool ExecutandoProcesso(Cozinha solicitacao)
-        {
+            var cozinha = SelecionarPorId(idCozinha);
             var receita = new ReceitaRepositorio();
-            var listaReceita = receita.SelecionarReceitaCompleta(solicitacao.ProdutoFabricado.Id);
+            var listaReceita = receita.SelecionarReceitaCompleta(cozinha.IdProduto);
 
-            if (VerificarNoEstoque(listaReceita, solicitacao))
+            if (VerificarNoEstoque(listaReceita, cozinha))
             {
                 return false;
             }
 
-            RetiraDoEstoque(listaReceita, solicitacao);
+            RetiraDoEstoque(listaReceita, cozinha);
+            return true;
+        }
+
+        public bool EntregarParaLoja(int idCozinha)
+        {
+            var cozinha = SelecionarPorId(idCozinha);
+            var p = cozinha.IdProduto;
+            var loja = new LojaRepositorio();
+            loja.ReceberProdutoDaCozinha(p, cozinha.QuantidadeProduzida);
             return true;
         }
 
@@ -42,10 +45,9 @@ namespace TechPadoca.Dados.Repositorio
         {
             foreach (var x in lista)
             {
-                var n = new EstoqueRepositorio();
-                n.MandarParaCozinha(x.QtdIngrediente * solicitacao.QuantidadeProduzida, x.ProdIngrediente);
+                var n = new IngredienteEstoqueRepositorio();
+                n.MandarParaCozinha(x.IdIngrediente, (x.QtdIngrediente * solicitacao.QuantidadeProduzida));
             }
-            solicitacao.AlterarStatus(ProducaoStatusEnum.Produzindo);
         }
 
         private bool VerificarNoEstoque(List<Receita> lista, Cozinha solicitacao)
@@ -53,8 +55,8 @@ namespace TechPadoca.Dados.Repositorio
             var count = 0;
             foreach (var x in lista)
             {
-                var n = new EstoqueRepositorio();
-                if (n.VerificarQuantidade(x.ProdIngrediente, x.QtdIngrediente * solicitacao.QuantidadeProduzida))
+                var n = new IngredienteEstoqueRepositorio();
+                if (n.VerificaQuantidade(x.IdIngrediente, (x.QtdIngrediente * solicitacao.QuantidadeProduzida)))
                 {
                     count++;
                 }

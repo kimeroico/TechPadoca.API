@@ -32,27 +32,27 @@ namespace TechPadoca.Dados.Repositorio
             var solicitado = SelecionarPorId(id);
             var estoque = new EstoqueRepositorio();
             var produtoRepo = new ProdutoRepositorio();
+            var cozinha = new CozinhaRepositorio();
             var produto = produtoRepo.SelecionarPorId(solicitado.ProdutoId);
 
-            if(estoque.MandarParaLoja(quantidadeSolicita, produto))
+            if(estoque.MandarParaLoja(quantidadeSolicita, produto) && produto.Marca != "Propria")
             {
                 solicitado.AdicionarProduto(quantidadeSolicita);
                 contexto.Loja.Update(solicitado);
                 contexto.SaveChanges();
+                return;
             }
 
+            cozinha.Incluir(solicitado.ProdutoId, quantidadeSolicita);
         }
 
-        //public void SolicitarProdutoParaCozinha(Produto produto, decimal quantidadeSolicita)
-        //{
-        //    var solicitado = SelecionePorIdProduto(produto);
-        //    var cozinha = new CozinhaRepositorio();
-
-        //    if (cozinha.NovaSolicitacaoDaLoja(solicitado.Produto, quantidadeSolicita))
-        //    {
-        //        solicitado.AdicionarProduto(quantidadeSolicita);
-        //    }
-        //}
+        public void ReceberProdutoDaCozinha(int idProduto, int quantidade)
+        {
+            var loja = SelecionePorIdProduto(idProduto);
+            loja.AdicionarProduto(quantidade);
+            contexto.Loja.Update(loja);
+            contexto.SaveChanges();
+        }
 
         public bool ProdutoVendido(int id, int quantidadeVendida)
         {
@@ -69,9 +69,9 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public Loja SelecionePorIdProduto(Produto produto)
+        public Loja SelecionePorIdProduto(int id)
         {
-            return contexto.Loja.FirstOrDefault(x => x.Produto.Id == produto.Id);
+            return contexto.Loja.FirstOrDefault(x => x.ProdutoId == id);
         }
 
         private bool ValidandoDuplicidade(Loja produtoEmLoja)

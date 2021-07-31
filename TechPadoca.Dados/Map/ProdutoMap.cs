@@ -21,6 +21,8 @@ namespace TechPadoca.Dados.Map
             builder.Property(x => x.Descricao).HasColumnType("varchar(150)").IsRequired();
             builder.Property(x => x.Status).IsRequired();
             builder.HasMany<ItemVenda>(p => p.ItemVenda).WithOne(s => s.Produto).HasForeignKey(i => i.IdProduto);
+            builder.HasMany<Receita>(p => p.Receita).WithOne(s => s.Produto).HasForeignKey(i => i.IdProduto);
+            builder.HasMany<Cozinha>(p => p.Cozinha).WithOne(s => s.Produto).HasForeignKey(i => i.IdProduto);
         }
     }
 }
