@@ -14,6 +14,7 @@ namespace TechPadoca.Dominio
         public decimal ValorTotal { get; set; }
         public decimal Desconto { get; set; }
         public string DataDaVenda { get; set; }
+        public List<ItemVenda> ItemVendas { get; set; }
 
         public void Cadastrar(int id, decimal desconto)
         {
