@@ -32,15 +32,6 @@ namespace TechPadoca.Dados.Repositorio
             return true;
         }
 
-        public bool EntregarParaLoja(int idCozinha)
-        {
-            var cozinha = SelecionarPorId(idCozinha);
-            var p = cozinha.IdProduto;
-            var loja = new LojaRepositorio();
-            loja.ReceberProdutoDaCozinha(p, cozinha.QuantidadeProduzida);
-            return true;
-        }
-
         private void RetiraDoEstoque(List<Receita> lista, Cozinha solicitacao)
         {
             foreach (var x in lista)
@@ -48,6 +39,15 @@ namespace TechPadoca.Dados.Repositorio
                 var n = new IngredienteEstoqueRepositorio();
                 n.MandarParaCozinha(x.IdIngrediente, (x.QtdIngrediente * solicitacao.QuantidadeProduzida));
             }
+        }
+
+        public bool EntregarParaLoja(int idCozinha)
+        {
+            var cozinha = SelecionarPorId(idCozinha);
+            var p = cozinha.IdProduto;
+            var loja = new LojaRepositorio();
+            loja.ReceberProdutoDaCozinha(p, cozinha.QuantidadeProduzida);
+            return true;
         }
 
         private bool VerificarNoEstoque(List<Receita> lista, Cozinha solicitacao)

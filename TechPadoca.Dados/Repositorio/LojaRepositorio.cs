@@ -35,7 +35,7 @@ namespace TechPadoca.Dados.Repositorio
             var cozinha = new CozinhaRepositorio();
             var produto = produtoRepo.SelecionarPorId(solicitado.ProdutoId);
 
-            if(estoque.MandarParaLoja(quantidadeSolicita, produto) && produto.Marca != "Propria")
+            if(produto.Marca != "Propria" && (estoque.MandarParaLoja(quantidadeSolicita, produto)))
             {
                 solicitado.AdicionarProduto(quantidadeSolicita);
                 contexto.Loja.Update(solicitado);
