@@ -16,8 +16,7 @@ namespace TechPadoca.Dominio
         public decimal Quantidade { get; set; }
         public decimal QuantidadeMinima { get; set; }
         public TipoQuantidadeEnum QtdTipo { get; set; }
-
-
+   
         public void Cadastrar(int id, Produto produto, decimal quantidade, decimal quantidadeMinima, int qtdTipo)
         {
             Id = id;
