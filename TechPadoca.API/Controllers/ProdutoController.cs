@@ -17,7 +17,7 @@ namespace TechPadoca.API.Controllers
             _repo = new ProdutoRepositorio();
         }
 
-        [HttpGet]
+        [HttpGet("lista")]
         public IEnumerable<Produto> Get()
         {
             return _repo.SelecionarTudo();
@@ -31,7 +31,7 @@ namespace TechPadoca.API.Controllers
         }
 
         // POST api/<ProdutoController>
-        [HttpPost]
+        [HttpPost("cadastra")]
         public void Post([FromBody] ProdutoDTO dto)
         {
             var produto = new Produto();
@@ -41,7 +41,7 @@ namespace TechPadoca.API.Controllers
         }
 
         // PUT api/<ProdutoController>/5
-        [HttpPut("{id}")]
+        [HttpPut("alterar/{id}")]
         public void Put(int id, [FromBody] ProdutoDTO dto)
         {
             var produto = new Produto();
