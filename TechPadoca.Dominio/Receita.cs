@@ -6,7 +6,9 @@ namespace TechPadoca.Dominio
     public class Receita : IEntity
     {
         public int Id { get; set; }
+        public int IdProdFabricado { get; set; }
         public Produto ProdFabricado { get; set; }
+        public int IdProdIngrediente { get; set; }
         public Produto ProdIngrediente { get; set; }
         public decimal QtdIngrediente { get; set; }
 
