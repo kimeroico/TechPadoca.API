@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TechPadoca.API.DTO;
 using TechPadoca.Dados.Repositorio;
 using TechPadoca.Dominio;
 
@@ -34,14 +35,27 @@ namespace TechPadoca.API.Controllers
 
         // POST api/<ProdutoController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] ProdutoDTO dto)
         {
+            var produto = new Produto();
+            produto.Cadastrar(dto.Nome, dto.Marca, dto.ValorUnitario, dto.Descricao);
+
+            _repo.Incluir(produto);
         }
 
         // PUT api/<ProdutoController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] ProdutoDTO dto)
         {
+            var produto = new Produto();
+            _repo.Alterar(id, dto.Nome, dto.Marca, dto.ValorUnitario, dto.Descricao);
+        }
+
+        [HttpPut("{id}/ativar")]
+        public void Ativar(int id)
+        {
+            var produto = new Produto();
+            _repo.AlterarStatus(id);
         }
 
         // DELETE api/<ProdutoController>/5

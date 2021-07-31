@@ -7,5 +7,9 @@ namespace TechPadoca.API.DTO
 {
     public class ProdutoDTO
     {
+        public string Nome { get; set; }
+        public string Marca { get; set; }
+        public decimal ValorUnitario { get; set; }
+        public string Descricao { get; set; }
     }
 }
