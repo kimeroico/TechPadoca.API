@@ -19,7 +19,7 @@ namespace TechPadoca.API.Controllers
             _repo = new EstoqueRepositorio();
         }
 
-        [HttpGet]
+        [HttpGet("lista")]
         public IEnumerable<Estoque> Get()
         {
             return _repo.SelecionarTudo();
@@ -31,25 +31,24 @@ namespace TechPadoca.API.Controllers
             return _repo.SelecionarPorId(id);
         }
 
-        [HttpPost]
+        [HttpPost("cadastra")]
         public void Post([FromBody] EstoqueDTO dto)
         {
             var estoque = new Estoque();
             estoque.Cadastrar(dto.QuantidadeTotal, dto.QuantidadeMinima, dto.IdProduto, dto.Local);
-
             _repo.Incluir(estoque);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("alterar/{id}")]
         public void Put(int id, [FromBody] EstoqueDTO dto)
         {            
             _repo.Alterar(id, dto.QuantidadeTotal, dto.QuantidadeMinima, dto.Local);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            _repo
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //    _repo
+        //}
     }
 }

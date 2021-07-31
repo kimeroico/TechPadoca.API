@@ -44,11 +44,16 @@ namespace TechPadoca.API.Controllers
         }
 
         // PUT api/<LojaController>/5
-        [HttpPut("{id}")]
+        [HttpPut("alterar/{id}")]
         public void Put(int id, [FromBody] LojaDTO dto)
         {
-            var produto = new Produto();
             _repo.Alterar(id, dto.Quantidade, dto.QuantidadeMinima);
+        }
+
+        [HttpPut("reposicao/{id}/quantidade/{quantidade}")]
+        public void SolicitarProdutoAoEstoque(int id, int quantidade)
+        {
+            _repo.SolicitarProdutoDoEstoque(id, quantidade);
         }
 
         // DELETE api/<LojaController>/5

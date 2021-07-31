@@ -27,12 +27,14 @@ namespace TechPadoca.Dados.Repositorio
             return base.Alterar(objeto);
         }
 
-        public void SolicitarProdutoDoEstoque(Produto produto, int quantidadeSolicita)
+        public void SolicitarProdutoDoEstoque(int id, int quantidadeSolicita)
         {
-            var solicitado = SelecionePorIdProduto(produto);
+            var solicitado = SelecionarPorId(id);
             var estoque = new EstoqueRepositorio();
+            var produtoRepo = new ProdutoRepositorio();
+            var produto = produtoRepo.SelecionarPorId(solicitado.ProdutoId);
 
-            if(estoque.MandarParaLoja(quantidadeSolicita, solicitado.Produto))
+            if(estoque.MandarParaLoja(quantidadeSolicita, produto))
             {
                 solicitado.AdicionarProduto(quantidadeSolicita);
                 contexto.Loja.Update(solicitado);

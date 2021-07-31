@@ -101,7 +101,7 @@ namespace TechPadoca.Dados.Repositorio
 
         public override List<Estoque> SelecionarTudo()
         {
-            return base.SelecionarTudo().OrderBy(x => x.Produto.Nome).ToList();
+            return base.SelecionarTudo().OrderBy(x => x.Id).ToList();
         }
     }
 }

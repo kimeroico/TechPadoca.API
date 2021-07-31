@@ -44,21 +44,18 @@ namespace TechPadoca.API.Controllers
         [HttpPut("alterar/{id}")]
         public void Put(int id, [FromBody] ProdutoDTO dto)
         {
-            var produto = new Produto();
             _repo.Alterar(id, dto.Nome, dto.Marca, dto.ValorUnitario, dto.Descricao);
         }
 
         [HttpPut("{id}/ativar")]
         public void Ativar(int id)
         {
-            var produto = new Produto();
             _repo.AlterarOn(id);
         }
 
         [HttpPut("{id}/desativar")]
         public void desativar(int id)
         {
-            var produto = new Produto();
             _repo.AlterarOff(id);
         }
 
