@@ -54,17 +54,17 @@ namespace TechPadoca.Dados.Repositorio
         //    }
         //}
 
-        public bool ProdutoVendido(Produto produto, int quantidadeVendida)
+        public bool ProdutoVendido(int id, int quantidadeVendida)
         {
-            var prodLoja = SelecionePorIdProduto(produto);
+            var solicitado = SelecionarPorId(id);
 
-            if (VerificarQuantidade(prodLoja, quantidadeVendida))
+            if (VerificarQuantidade(solicitado, quantidadeVendida))
             {
                 return false;
             }
 
-            prodLoja.RetirarProdutoVendido(quantidadeVendida);
-            contexto.Loja.Update(prodLoja);
+            solicitado.RetirarProdutoVendido(quantidadeVendida);
+            contexto.Loja.Update(solicitado);
             contexto.SaveChanges();
             return true;
         }

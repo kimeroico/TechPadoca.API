@@ -36,15 +36,14 @@ namespace TechPadoca.API.Controllers
         {
             var venda = new Venda();
             venda.Cadastrar(dto.Desconto);
-
             _repo.Incluir(venda);
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] VendaDTO dto)
-        {
-            var venda = _repo.SelecionarPorId(id);
-            _repo.AdicionarValorTotal(venda, dto.ValorTotal);
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] VendaDTO dto)
+        //{
+        //    var venda = _repo.SelecionarPorId(id);
+        //    _repo.AdicionarValorTotal(venda, dto.ValorTotal);
+        //}
     }
 }

@@ -26,10 +26,7 @@ namespace TechPadoca.Dominio
 
         public void AdicionarTotal(decimal valor)
         {
-            if (valor > 0)
-            {
-                ValorTotal += valor;
-            }
+            ValorTotal = ValorTotal + valor;
         }
     }
 }

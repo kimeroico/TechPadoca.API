@@ -8,6 +8,5 @@ namespace TechPadoca.API.DTO
     public class VendaDTO
     {
         public decimal Desconto { get; set; }
-        public decimal ValorTotal { get; set; }
     }
 }

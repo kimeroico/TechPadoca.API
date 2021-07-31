@@ -14,13 +14,13 @@ namespace TechPadoca.Dados.Repositorio
             return base.Incluir(venda);
         }
 
-        public bool AdicionarValorTotal(Venda venda, decimal adicionado)
+        public bool AdicionarValorTotal(int idVenda, decimal adicionado)
         {
-            venda.AdicionarTotal(adicionado);
-            contexto.Venda.Update(venda);
+            var x = SelecionarPorId(idVenda);
+            x.AdicionarTotal(adicionado);
+            contexto.Venda.Update(x);
             contexto.SaveChanges();
             return true;
         }
     }
-
 }
