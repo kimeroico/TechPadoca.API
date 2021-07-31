@@ -16,7 +16,7 @@ namespace TechPadoca.Dados
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=KIMEROICO; Database=TechStyle; Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=KIMEROICO; Database=TechPadoca; Trusted_Connection=True");
             base.OnConfiguring(optionsBuilder);
         }
 

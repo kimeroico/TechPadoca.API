@@ -6,10 +6,10 @@ namespace TechPadoca.UI
 {
     class Program
     {
-        //static void Main(string[] args)
-        //{
-        //    Testes();
-        //}
+        static void Main(string[] args)
+        {
+            //Testes();
+        }
         //public static void Testes()
         //{
         //    var comando = "";

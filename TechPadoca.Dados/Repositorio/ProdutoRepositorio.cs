@@ -7,7 +7,7 @@ namespace TechPadoca.Dados.Repositorio
 {
     public class ProdutoRepositorio : BaseRepositorio<Produto>
     {
-        public bool Incluir(string nome, string marca, decimal valorUnitario, string descricao,)
+        public bool Incluir(string nome, string marca, decimal valorUnitario, string descricao)
         {
             Produto novoProduto = new Produto();
             novoProduto.Cadastrar(nome, marca, valorUnitario, descricao);

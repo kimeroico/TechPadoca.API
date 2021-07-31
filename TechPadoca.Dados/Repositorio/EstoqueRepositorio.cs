@@ -85,18 +85,18 @@ namespace TechPadoca.Dados.Repositorio
 
         private bool Existe(Estoque estoque)
         {
-            return listaEstoque.Any(x => x.Local.Trim().ToLower() == estoque.Local.Trim().ToLower()
+            return contexto.Estoque.Any(x => x.Local.Trim().ToLower() == estoque.Local.Trim().ToLower()
             && x.Produto.Id == estoque.Produto.Id);
         }
 
         public Estoque SelecionarPorProdutoId(Produto produto)
         {
-            return listaEstoque.FirstOrDefault(x => x.Produto.Id == produto.Id);
+            return contexto.Estoque.FirstOrDefault(x => x.Produto.Id == produto.Id);
         }
 
         private bool LocalEstaOcupado(string local)
         {
-            return listaEstoque.Any(x => x.Local.Trim().ToLower() == local.Trim().ToLower());
+            return contexto.Estoque.Any(x => x.Local.Trim().ToLower() == local.Trim().ToLower());
         }
 
         public override List<Estoque> SelecionarTudo()
