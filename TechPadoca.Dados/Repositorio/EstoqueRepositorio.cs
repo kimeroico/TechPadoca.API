@@ -70,18 +70,18 @@ namespace TechPadoca.Dados.Repositorio
             return false;
         }
 
-        public bool VerificarQuantidade(Produto produto, int quantidadePedida)
-        {
-            var produtoEmEstoque = SelecionarPorProdutoId(produto);
+        //public bool VerificarQuantidade(Produto produto, int quantidadePedida)
+        //{
+        //    var produtoEmEstoque = SelecionarPorProdutoId(produto);
 
-            if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
-            {
-                Console.WriteLine("Não existe quantidade suficiente.");
-                return true;
-            }
+        //    if (produtoEmEstoque.QuantidadeTotal < quantidadePedida)
+        //    {
+        //        Console.WriteLine("Não existe quantidade suficiente.");
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         private bool Existe(Estoque estoque)
         {
@@ -94,10 +94,10 @@ namespace TechPadoca.Dados.Repositorio
             return contexto.Estoque.FirstOrDefault(x => x.Produto.Id == produto.Id);
         }
 
-        private bool LocalEstaOcupado(string local)
-        {
-            return contexto.Estoque.Any(x => x.Local.Trim().ToLower() == local.Trim().ToLower());
-        }
+        //private bool LocalEstaOcupado(string local)
+        //{
+        //    return contexto.Estoque.Any(x => x.Local.Trim().ToLower() == local.Trim().ToLower());
+        //}
 
         public override List<Estoque> SelecionarTudo()
         {
