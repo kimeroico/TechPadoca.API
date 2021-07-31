@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechPadoca.UI", "TechPadoca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechPadoca.Dominio", "TechPadoca.Dominio\TechPadoca.Dominio.csproj", "{95125739-6D88-4AA5-AFC1-30B8C9B2BDC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechPadoca.Dados", "TechPadoca.Dados\TechPadoca.Dados.csproj", "{7310ACB3-2676-469A-86AC-6F5DBDF77205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechPadoca.Dados", "TechPadoca.Dados\TechPadoca.Dados.csproj", "{7310ACB3-2676-469A-86AC-6F5DBDF77205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechPadoca.API", "TechPadoca.API\TechPadoca.API.csproj", "{B68EA953-A642-4645-B493-AFFF3E3A4D7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7310ACB3-2676-469A-86AC-6F5DBDF77205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7310ACB3-2676-469A-86AC-6F5DBDF77205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7310ACB3-2676-469A-86AC-6F5DBDF77205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68EA953-A642-4645-B493-AFFF3E3A4D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68EA953-A642-4645-B493-AFFF3E3A4D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68EA953-A642-4645-B493-AFFF3E3A4D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68EA953-A642-4645-B493-AFFF3E3A4D7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
