@@ -2,7 +2,6 @@
 using TechPadoca.Dominio;
 using System.Linq;
 using System;
-using TechPadoca.Dominio.Enum;
 
 namespace TechPadoca.Dados.Repositorio
 {

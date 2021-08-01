@@ -1,5 +1,4 @@
-﻿using TechPadoca.Dominio.Enum;
-using TechPadoca.Dominio.Interface;
+﻿using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {

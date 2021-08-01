@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TechPadoca.Dominio.Enum;
 using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio

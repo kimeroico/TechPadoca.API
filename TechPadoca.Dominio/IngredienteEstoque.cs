@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechPadoca.Dominio.Interface;
+﻿using TechPadoca.Dominio.Interface;
 
 namespace TechPadoca.Dominio
 {
