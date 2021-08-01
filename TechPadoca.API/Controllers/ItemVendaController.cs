@@ -58,11 +58,5 @@ namespace TechPadoca.API.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-
-        //// DELETE api/<ItemVendaController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

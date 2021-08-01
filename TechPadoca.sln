@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechPadoca.Dominio", "TechP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechPadoca.Dados", "TechPadoca.Dados\TechPadoca.Dados.csproj", "{7310ACB3-2676-469A-86AC-6F5DBDF77205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechPadoca.API", "TechPadoca.API\TechPadoca.API.csproj", "{B68EA953-A642-4645-B493-AFFF3E3A4D7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechPadoca.API", "TechPadoca.API\TechPadoca.API.csproj", "{B68EA953-A642-4645-B493-AFFF3E3A4D7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

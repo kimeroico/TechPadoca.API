@@ -42,17 +42,5 @@ namespace TechPadoca.API.Controllers
             ingrediente.Cadastrar(dto.Nome);
             _repo.Incluir(ingrediente);
         }
-
-        //// PUT api/<IngredienteController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<IngredienteController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

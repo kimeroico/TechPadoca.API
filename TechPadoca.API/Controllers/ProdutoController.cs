@@ -58,11 +58,5 @@ namespace TechPadoca.API.Controllers
         {
             _repo.AlterarOff(id);
         }
-
-        //// DELETE api/<ProdutoController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

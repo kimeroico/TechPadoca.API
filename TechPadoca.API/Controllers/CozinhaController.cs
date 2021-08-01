@@ -43,25 +43,6 @@ namespace TechPadoca.API.Controllers
         public bool EntragarParaLoja(int id)
         {
             return _repo.EntregarParaLoja(id);
-        }
-
-
-        //// POST api/<CozinhaController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        // PUT api/<CozinhaController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<CozinhaController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        }      
     }
 }

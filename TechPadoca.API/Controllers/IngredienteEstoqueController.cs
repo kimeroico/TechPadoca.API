@@ -42,17 +42,5 @@ namespace TechPadoca.API.Controllers
             inEstoque.Cadastrar(dto.QuantidadeTotal, dto.QuantidadeMinima, dto.Local, dto.IdIngrediente);
             _repo.Incluir(inEstoque);
         }
-
-        // PUT api/<IngredienteEstoqueController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] IngredienteEstoqueDTO dto)
-        //{
-        //}
-
-        //// DELETE api/<IngredienteEstoqueController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
